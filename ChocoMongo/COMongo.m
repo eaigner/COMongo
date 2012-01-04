@@ -46,7 +46,7 @@
 }
 
 - (void)dealloc {
-  mongo_destroy(&conn_);
+  [self destroy];
 }
 
 - (BOOL)connect:(NSError **)error {
@@ -75,6 +75,10 @@
   }
   
   return (status == MONGO_OK);
+}
+
+- (void)destroy {
+  mongo_destroy(&conn_);
 }
 
 @end
