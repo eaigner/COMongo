@@ -115,7 +115,7 @@ static void bsonForDictionary(bson *bson, NSDictionary *dict) {
       NSNumber *number = (NSNumber *)obj;
       const char *numType = number.objCType;
       
-#define eqType(x) (strncmp(numType, x, strlen(numType)) == 0)
+#define eqType(x) (strncmp(numType, x, strlen(x)) == 0)
       
       if (eqType(@encode(int))) {
         bson_append_int(bson, ckey, number.intValue);
