@@ -308,14 +308,15 @@ static id decodeBson(bson *b, id collection) {
                                     skip,
                                     0); // cursor flags */
   
+  NSMutableArray *results = [NSMutableArray new];
   while (cursor != NULL && mongo_cursor_next(cursor) == MONGO_OK) {
     id obj = [self decodeBSONToObject:&cursor->current];
-    NSLog(@"obj: %@", obj);
+    [results addObject:obj];
   }
   
   mongo_cursor_destroy(cursor);
   
-  return nil;
+  return results;
 }
 
 @end

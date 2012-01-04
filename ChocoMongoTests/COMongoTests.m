@@ -65,6 +65,12 @@
                           limit:0
                            skip:0];
     
+    STAssertEquals(docs.count, (NSUInteger)1, nil);
+
+    NSMutableDictionary *result = [docs objectAtIndex:0];
+    STAssertNotNil(result, nil);
+    STAssertEqualObjects(result, doc, nil);
+    
     //[mongo destroy];
   }
 }
