@@ -113,8 +113,14 @@ static void encodeBson(bson *b, id obj, const char *key) {
     }
   }
   /* arrays */ else if ([obj isKindOfClass:[NSArray class]]) {
+    if (key != NULL) {
+      bson_append_start_array(b, key);
+    }
     for (int c=0; c<[obj count]; c++) {
       encodeBson(b, [obj objectAtIndex:c], [[NSString stringWithFormat:@"%d", c] UTF8String]);
+    }
+    if (key != NULL) {
+      bson_append_finish_array(b);
     }
   }
   /* strings */ else if ([obj isKindOfClass:[NSString class]]) {
