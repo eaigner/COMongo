@@ -19,6 +19,11 @@
   NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
                         @"obj1", @"obj1Key",
                         @"obj2", @"obj2Key",
+                        [NSNumber numberWithInt:3], @"intKey",
+                        [NSNumber numberWithLong:5], @"longKey",
+                        [NSNumber numberWithDouble:4.876], @"doubleKey",
+                        [NSNumber numberWithBool:YES], @"boolKey",
+                        [@"dataObj" dataUsingEncoding:NSUTF8StringEncoding], @"dataKey",
                         [NSArray arrayWithObjects:@"a0", @"a1", @"a2", @"a3", nil], @"arrayKey",
                         [NSDictionary dictionaryWithObject:@"dictObj1" forKey:@"dictKey1"], @"dictKey0",
                         nil];
