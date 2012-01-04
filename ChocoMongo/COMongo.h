@@ -23,6 +23,7 @@
 
 - (BOOL)connect:(NSError **)error;
 - (void)destroy;
+- (BOOL)isHealthy;
 - (const char *)namespaceForCollection:(NSString *)collection;
 
 /*!
