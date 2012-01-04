@@ -23,7 +23,7 @@
 
 @implementation COMongo {
 @private
-  mongo mongo_[1];
+  mongo *mongo_;
 }
 @synthesize host = host_;
 @synthesize port = port_;
@@ -42,6 +42,7 @@
   assert(db.length > 0);
   self = [super init];
   if (self) {
+    mongo_ = malloc(sizeof(mongo));
     self.host = host;
     self.port = port;
     self.database = db;
@@ -93,8 +94,11 @@
 }
 
 - (void)destroy {
-  // FIXME: calling mongo_destroy crashes here!
-  // mongo_destroy(mongo_);
+  if (mongo_ != NULL) {
+    mongo_destroy(mongo_);
+    free(mongo_);
+    mongo_ = NULL;
+  }
 }
 
 - (const char *)namespaceForCollection:(NSString *)collection {
