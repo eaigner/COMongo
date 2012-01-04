@@ -271,8 +271,6 @@ static id decodeBson(bson *b, id collection) {
   assert(collection.length > 0);
   assert(mongo_->connected);
   
-  
-  
   bson b[1];
   bson_init(b);
   
@@ -287,6 +285,8 @@ static id decodeBson(bson *b, id collection) {
     NSLog(@"mongo error: could not insert document into '%s'", ns);
   }
   
+  bson_destroy(b);
+  
   return (status == MONGO_OK);
 }
 
@@ -296,20 +296,20 @@ static id decodeBson(bson *b, id collection) {
   assert(mongo_->connected);
   
   // Encode query
-  bson bsonQuery[1];
-  bson_init(bsonQuery);
+  bson b[1];
+  bson_init(b);
   if (query != nil) {
-    encodeBson(bsonQuery, query, NULL, NO);
+    encodeBson(b, query, NULL, NO);
   }
   else {
-    bson_empty(bsonQuery);
+    bson_empty(b);
   }  
-  bson_finish(bsonQuery);
+  bson_finish(b);
   
   NSMutableArray *results = [NSMutableArray new];
   
   const char *ns = [self namespaceForCollection:collection];
-  mongo_cursor *cursor = mongo_find(mongo_, ns, bsonQuery, NULL, limit, skip, 0);
+  mongo_cursor *cursor = mongo_find(mongo_, ns, b, NULL, limit, skip, 0);
   
   while (cursor != NULL && mongo_cursor_next(cursor) == MONGO_OK) {
     id obj = [self decodeBSONToObject:&cursor->current];
@@ -317,6 +317,7 @@ static id decodeBson(bson *b, id collection) {
   }
   
   mongo_cursor_destroy(cursor);
+  bson_destroy(b);
   
   return results;
 }
