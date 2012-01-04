@@ -4,6 +4,10 @@ COMongo is an Objective-C wrapper around the MongoDB C driver.
 Be aware that this project is under development and is not suitable for production yet,
 contributions are always welcome!
 
+#### License
+
+COMongo uses the simplified (2 clause) BSD license (see [LICENSE](https://github.com/eaigner/COMongo/blob/master/LICENSE) file)
+
 #### Example
 
     NSError *error = nil;
