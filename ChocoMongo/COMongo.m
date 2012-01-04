@@ -86,7 +86,9 @@ static void encodeBson(bson *b, id obj, const char *key) {
   /* dicts */ if ([obj isKindOfClass:[NSDictionary class]]) {
     // If this is not a root object and thus a recursive call, start a new object with the key
     if (key != NULL) {
-      bson_append_start_object(b, key);
+      if (bson_append_start_object(b, key) != BSON_OK) {
+        NSLog(@"bson error: could not start object for key '%s'", key);
+      }
     }
     
     // Append _id key first, as recommended by mongo docs
@@ -109,18 +111,24 @@ static void encodeBson(bson *b, id obj, const char *key) {
     }
     
     if (key != NULL) {
-      bson_append_finish_object(b);
+      if (bson_append_finish_object(b) != BSON_OK) {
+        NSLog(@"bson error: could not finish object for key '%s'", key);
+      }
     }
   }
   /* arrays */ else if ([obj isKindOfClass:[NSArray class]]) {
     if (key != NULL) {
-      bson_append_start_array(b, key);
+      if (bson_append_start_array(b, key) != BSON_OK) {
+        NSLog(@"bson error: could not start array for key '%s'", key);
+      }
     }
     for (int c=0; c<[obj count]; c++) {
       encodeBson(b, [obj objectAtIndex:c], [[NSString stringWithFormat:@"%d", c] UTF8String]);
     }
     if (key != NULL) {
-      bson_append_finish_array(b);
+      if (bson_append_finish_array(b) != BSON_OK) {
+        NSLog(@"bson error: could not finish array for key '%s'", key);
+      }
     }
   }
   /* strings */ else if ([obj isKindOfClass:[NSString class]]) {
