@@ -14,6 +14,5 @@
 - (id)initWithDictionary:(NSDictionary *)dict;
 
 - (NSDictionary *)serializedProperties;
-- (NSData *)serializedPropertiesJSON;
 
 @end

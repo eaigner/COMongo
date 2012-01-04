@@ -56,16 +56,4 @@
   return [NSDictionary dictionaryWithDictionary:props];;
 }
 
-- (NSData *)serializedPropertiesJSON {
-  NSError *jsonError = nil;
-  id obj = [NSJSONSerialization dataWithJSONObject:[self serializedProperties]
-                                           options:0
-                                             error:&jsonError];
-  if (jsonError != nil) {
-    NSLog(@"error: could not serialize properties to JSON (%@)", jsonError.localizedDescription);
-    return nil;
-  }
-  return obj;
-}
-
 @end
