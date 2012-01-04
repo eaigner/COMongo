@@ -11,6 +11,7 @@
 #import <objc/runtime.h>
 
 @implementation COMongoObject
+@synthesize _id = _id_;
 
 - (id)initWithDictionary:(NSDictionary *)dict {
   self = [super init];

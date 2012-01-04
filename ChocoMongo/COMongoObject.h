@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface COMongoObject : NSObject
+@property (nonatomic, copy) NSString *_id;
 
 - (id)initWithDictionary:(NSDictionary *)dict;
 
