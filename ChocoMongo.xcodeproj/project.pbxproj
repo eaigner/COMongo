@@ -19,6 +19,14 @@
 		DCCC2E3E14B4621D0097E26B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCCC2E3C14B4621D0097E26B /* InfoPlist.strings */; };
 		DCCC2E5114B462840097E26B /* COMongoObject.m in Sources */ = {isa = PBXBuildFile; fileRef = DCCC2E5014B462840097E26B /* COMongoObject.m */; };
 		DCCC2E5414B464B60097E26B /* COMongoObjectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DCCC2E5314B464B60097E26B /* COMongoObjectTests.m */; };
+		DCCC2E5714B4698A0097E26B /* COMongoConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = DCCC2E5614B4698A0097E26B /* COMongoConnection.m */; };
+		DCCC2E6914B46A1B0097E26B /* bson.c in Sources */ = {isa = PBXBuildFile; fileRef = DCCC2E5B14B46A1B0097E26B /* bson.c */; };
+		DCCC2E6A14B46A1B0097E26B /* encoding.c in Sources */ = {isa = PBXBuildFile; fileRef = DCCC2E5D14B46A1B0097E26B /* encoding.c */; };
+		DCCC2E6B14B46A1B0097E26B /* gridfs.c in Sources */ = {isa = PBXBuildFile; fileRef = DCCC2E5F14B46A1B0097E26B /* gridfs.c */; };
+		DCCC2E6C14B46A1B0097E26B /* md5.c in Sources */ = {isa = PBXBuildFile; fileRef = DCCC2E6114B46A1B0097E26B /* md5.c */; };
+		DCCC2E6D14B46A1B0097E26B /* mongo.c in Sources */ = {isa = PBXBuildFile; fileRef = DCCC2E6314B46A1B0097E26B /* mongo.c */; settings = {COMPILER_FLAGS = "-w"; }; };
+		DCCC2E6E14B46A1B0097E26B /* net.c in Sources */ = {isa = PBXBuildFile; fileRef = DCCC2E6514B46A1B0097E26B /* net.c */; };
+		DCCC2E6F14B46A1B0097E26B /* numbers.c in Sources */ = {isa = PBXBuildFile; fileRef = DCCC2E6714B46A1B0097E26B /* numbers.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +58,22 @@
 		DCCC2E5014B462840097E26B /* COMongoObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = COMongoObject.m; sourceTree = "<group>"; };
 		DCCC2E5214B464B60097E26B /* COMongoObjectTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = COMongoObjectTests.h; sourceTree = "<group>"; };
 		DCCC2E5314B464B60097E26B /* COMongoObjectTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = COMongoObjectTests.m; sourceTree = "<group>"; };
+		DCCC2E5514B4698A0097E26B /* COMongoConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = COMongoConnection.h; sourceTree = "<group>"; };
+		DCCC2E5614B4698A0097E26B /* COMongoConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = COMongoConnection.m; sourceTree = "<group>"; };
+		DCCC2E5B14B46A1B0097E26B /* bson.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = bson.c; sourceTree = "<group>"; };
+		DCCC2E5C14B46A1B0097E26B /* bson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bson.h; sourceTree = "<group>"; };
+		DCCC2E5D14B46A1B0097E26B /* encoding.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = encoding.c; sourceTree = "<group>"; };
+		DCCC2E5E14B46A1B0097E26B /* encoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = encoding.h; sourceTree = "<group>"; };
+		DCCC2E5F14B46A1B0097E26B /* gridfs.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gridfs.c; sourceTree = "<group>"; };
+		DCCC2E6014B46A1B0097E26B /* gridfs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gridfs.h; sourceTree = "<group>"; };
+		DCCC2E6114B46A1B0097E26B /* md5.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = md5.c; sourceTree = "<group>"; };
+		DCCC2E6214B46A1B0097E26B /* md5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = md5.h; sourceTree = "<group>"; };
+		DCCC2E6314B46A1B0097E26B /* mongo.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mongo.c; sourceTree = "<group>"; };
+		DCCC2E6414B46A1B0097E26B /* mongo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mongo.h; sourceTree = "<group>"; };
+		DCCC2E6514B46A1B0097E26B /* net.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = net.c; sourceTree = "<group>"; };
+		DCCC2E6614B46A1B0097E26B /* net.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = net.h; sourceTree = "<group>"; };
+		DCCC2E6714B46A1B0097E26B /* numbers.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = numbers.c; sourceTree = "<group>"; };
+		DCCC2E6814B46A1B0097E26B /* platform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = platform.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +136,7 @@
 				DCCC2E2A14B4621D0097E26B /* COAppDelegate.h */,
 				DCCC2E2B14B4621D0097E26B /* COAppDelegate.m */,
 				DCCC2E4A14B462320097E26B /* Classes */,
+				DCCC2E5814B469C30097E26B /* Vendor */,
 				DCCC2E2214B4621D0097E26B /* Supporting Files */,
 			);
 			path = ChocoMongo;
@@ -152,8 +177,48 @@
 			children = (
 				DCCC2E4F14B462840097E26B /* COMongoObject.h */,
 				DCCC2E5014B462840097E26B /* COMongoObject.m */,
+				DCCC2E5514B4698A0097E26B /* COMongoConnection.h */,
+				DCCC2E5614B4698A0097E26B /* COMongoConnection.m */,
 			);
 			name = Classes;
+			sourceTree = "<group>";
+		};
+		DCCC2E5814B469C30097E26B /* Vendor */ = {
+			isa = PBXGroup;
+			children = (
+				DCCC2E5914B469EF0097E26B /* mongo-c-driver */,
+			);
+			name = Vendor;
+			path = ../Vendor;
+			sourceTree = "<group>";
+		};
+		DCCC2E5914B469EF0097E26B /* mongo-c-driver */ = {
+			isa = PBXGroup;
+			children = (
+				DCCC2E5A14B46A020097E26B /* src */,
+			);
+			path = "mongo-c-driver";
+			sourceTree = "<group>";
+		};
+		DCCC2E5A14B46A020097E26B /* src */ = {
+			isa = PBXGroup;
+			children = (
+				DCCC2E5B14B46A1B0097E26B /* bson.c */,
+				DCCC2E5C14B46A1B0097E26B /* bson.h */,
+				DCCC2E5D14B46A1B0097E26B /* encoding.c */,
+				DCCC2E5E14B46A1B0097E26B /* encoding.h */,
+				DCCC2E5F14B46A1B0097E26B /* gridfs.c */,
+				DCCC2E6014B46A1B0097E26B /* gridfs.h */,
+				DCCC2E6114B46A1B0097E26B /* md5.c */,
+				DCCC2E6214B46A1B0097E26B /* md5.h */,
+				DCCC2E6314B46A1B0097E26B /* mongo.c */,
+				DCCC2E6414B46A1B0097E26B /* mongo.h */,
+				DCCC2E6514B46A1B0097E26B /* net.c */,
+				DCCC2E6614B46A1B0097E26B /* net.h */,
+				DCCC2E6714B46A1B0097E26B /* numbers.c */,
+				DCCC2E6814B46A1B0097E26B /* platform.h */,
+			);
+			path = src;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -265,6 +330,14 @@
 				DCCC2E2814B4621D0097E26B /* main.m in Sources */,
 				DCCC2E2C14B4621D0097E26B /* COAppDelegate.m in Sources */,
 				DCCC2E5114B462840097E26B /* COMongoObject.m in Sources */,
+				DCCC2E5714B4698A0097E26B /* COMongoConnection.m in Sources */,
+				DCCC2E6914B46A1B0097E26B /* bson.c in Sources */,
+				DCCC2E6A14B46A1B0097E26B /* encoding.c in Sources */,
+				DCCC2E6B14B46A1B0097E26B /* gridfs.c in Sources */,
+				DCCC2E6C14B46A1B0097E26B /* md5.c in Sources */,
+				DCCC2E6D14B46A1B0097E26B /* mongo.c in Sources */,
+				DCCC2E6E14B46A1B0097E26B /* net.c in Sources */,
+				DCCC2E6F14B46A1B0097E26B /* numbers.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
