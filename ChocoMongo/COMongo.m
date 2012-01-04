@@ -59,7 +59,7 @@
   [self destroy];
 }
 
-- (BOOL)connect:(NSError **)error {  
+- (BOOL)connect:(NSError **)error {
   int status = mongo_connect(&mongo_, self.host.UTF8String, self.port);
   
   if(status != MONGO_OK) {
@@ -212,33 +212,48 @@ static void encodeBson(bson *b, id obj, const char *key, BOOL insertRootId) {
     NSLog(@"mongo error: could not insert document into %@", dbcol);
   }
   
-  bson_destroy(b);
-  
   return (status == MONGO_OK);
 }
 
 - (NSArray *)find:(NSDictionary *)query inCollection:(NSString *)collection limit:(NSInteger)limit skip:(NSInteger)skip {
   assert(self.database.length > 0);
   assert(collection.length > 0);
-  bson b[1];
+  
+  limit = 30;
+  
+  bson bsonQuery[1];
+  bson_init(bsonQuery);
   
   // Encode query
-  if (query == nil) {
-    bson_empty(b);
+  if (query != nil) {
+    encodeBson(bsonQuery, query, NULL, NO);
   }
   else {
-    encodeBson(b, query, NULL, NO);
+    bson_empty(bsonQuery);
   }
+  
+  bson_finish(bsonQuery);
   
   NSString *namespace = [NSString stringWithFormat:@"%@.%@", self.database, collection];
   
-  mongo_cursor *cursor = mongo_find(&mongo_, namespace.UTF8String, b, NULL /* fields to be returned */, limit, skip, 0 /* cursor flags */);
-  while(mongo_cursor_next(cursor) == MONGO_OK) {
+  NSLog(@"namespace: %@", namespace);
+  printf("query");
+  bson_print(bsonQuery);
+  
+  mongo_cursor *cursor = mongo_find(&mongo_,
+                                    namespace.UTF8String,
+                                    bsonQuery,
+                                    NULL,
+                                    limit,
+                                    skip,
+                                    0); // cursor flags */
+  
+  while (cursor != NULL && mongo_cursor_next(cursor) == MONGO_OK) {
+    printf("NEXT CURSOR OBJ ---------------------------------");
     bson_print(&cursor->current);
   }
   
   mongo_cursor_destroy(cursor);
-  bson_destroy(b);
   
   return nil;
 }

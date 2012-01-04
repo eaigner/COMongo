@@ -35,12 +35,13 @@
   bson_print(b);
 }
 
-- (void)testInsert {
+- (void)testInsertAndFind {
+  double timestamp = [[NSDate date] timeIntervalSince1970];
   NSDictionary *doc = [NSDictionary dictionaryWithObjectsAndKeys:
                        @"str", @"strKey",
                        [NSNumber numberWithInt:3], @"intKey",
                        [NSNumber numberWithLong:5], @"longKey",
-                       [NSNumber numberWithDouble:4.876], @"doubleKey",
+                       [NSNumber numberWithDouble:timestamp], @"doubleKey",
                        [NSNumber numberWithBool:YES], @"boolKey",
                        [@"dataObj" dataUsingEncoding:NSUTF8StringEncoding], @"dataKey",
                        [NSArray arrayWithObjects:@"a0", @"a1", @"a2", @"a3", nil], @"arrayKey",
@@ -48,21 +49,23 @@
   
   COMongo *mongo = [[COMongo alloc] initWithHost:MONGO_HOST
                                             port:MONGO_PORT
-                                        database:MONGO_DB
-                                            user:MONGO_USER
-                                        password:MONGO_PW
-                                operationTimeout:1000];
+                                        database:MONGO_DB];
   
   NSError *error = nil;
   BOOL connected = [mongo connect:&error];
   STAssertTrue(connected, nil);
   STAssertNil(error, @"error: %@", error);
   
-  if (connected) {    
+  if (connected) {
     BOOL inserted = [mongo insert:doc intoCollection:@"chocomongo"];
     STAssertTrue(inserted, nil);
     
-    [mongo destroy];
+    NSArray *docs = [mongo find:[NSDictionary dictionaryWithObject:[NSNumber numberWithDouble:timestamp] forKey:@"doubleKey"]
+                   inCollection:@"chocomongo"
+                          limit:0
+                           skip:0];
+    
+    //[mongo destroy];
   }
 }
 
