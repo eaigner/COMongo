@@ -82,86 +82,88 @@
   mongo_destroy(&conn_);
 }
 
-static void bsonForDictionary(bson *bson, NSDictionary *dict) {
-  bson_init(bson);
-  
-  // Append _id key first
-  NSString *oid = [dict objectForKey:kCOMongoIDKey];
-  if (oid == nil) {
-    bson_append_new_oid(bson, kCOMongoIDKey.UTF8String);
-  }
-  else {
-    bson_oid_t boid;
-    bson_oid_from_string(&boid, oid.UTF8String);
-    bson_append_oid(bson, kCOMongoIDKey.UTF8String, &boid);
-  }
-  
-  // Append other keys and values
-  for (NSString *key in dict) {
-    if ([key isEqualToString:kCOMongoIDKey]) {
-      continue;
+static void encodeBson(bson *b, id obj, const char *key) {
+  /* dicts */ if ([obj isKindOfClass:[NSDictionary class]]) {
+    // If this is not a root object and thus a recursive call, start a new object with the key
+    if (key != NULL) {
+      bson_append_start_object(b, key);
     }
-    const char *ckey = key.UTF8String;
-    id obj = [dict objectForKey:key];
     
-    // Strings
-    if ([obj isKindOfClass:[NSString class]]) {
-      const char *cvalue = [obj UTF8String];
-      if (bson_append_string(bson, ckey, cvalue) != BSON_OK) {
-        NSLog(@"bson error: could not append string for key '%s'", ckey);
+    // Append _id key first, as recommended by mongo docs
+    NSString *oidStr = [obj objectForKey:kCOMongoIDKey];
+    if (oidStr == nil) {
+      bson_append_new_oid(b, kCOMongoIDKey.UTF8String);
+    }
+    else {
+      bson_oid_t oid;
+      bson_oid_from_string(&oid, oidStr.UTF8String);
+      bson_append_oid(b, kCOMongoIDKey.UTF8String, &oid);
+    }
+    
+    // Append other keys and values
+    for (NSString *key in obj) {
+      if ([key isEqualToString:kCOMongoIDKey]) {
+        continue;
       }
+      encodeBson(b, [obj objectForKey:key], key.UTF8String);
     }
     
-    // Numbers
-    else if ([obj isKindOfClass:[NSNumber class]]) {
-      NSNumber *number = (NSNumber *)obj;
-      const char *numType = number.objCType;
-      
+    if (key != NULL) {
+      bson_append_finish_object(b);
+    }
+  }
+  /* arrays */ else if ([obj isKindOfClass:[NSArray class]]) {
+    for (int c=0; c<[obj count]; c++) {
+      encodeBson(b, [obj objectAtIndex:c], [[NSString stringWithFormat:@"%d", c] UTF8String]);
+    }
+  }
+  /* strings */ else if ([obj isKindOfClass:[NSString class]]) {
+    if (bson_append_string(b, key, [obj UTF8String]) != BSON_OK) {
+      NSLog(@"bson error: could not append string for key '%s'", key);
+    }
+  }
+  /* numbers */ else if ([obj isKindOfClass:[NSNumber class]]) {
+    NSNumber *number = (NSNumber *)obj;
+    const char *numType = number.objCType;
+    
 #define eqType(x) (strncmp(numType, x, strlen(x)) == 0)
-      
-      if (eqType(@encode(int))) {
-        if (bson_append_int(bson, ckey, number.intValue) != BSON_OK) {
-          NSLog(@"bson error: could not append int for key '%s'", ckey);
-        }
-      }
-      else if (eqType(@encode(long))) {
-        if (bson_append_long(bson, ckey, number.longValue) != BSON_OK) {
-          NSLog(@"bson error: could not append long for key '%s'", ckey);
-        }
-      }
-      else if (eqType(@encode(double))) {
-        if (bson_append_double(bson, ckey, number.doubleValue) != BSON_OK) {
-          NSLog(@"bson error: could not append double for key '%s'", ckey);
-        }
-      }
-      else if (eqType(@encode(BOOL))) {
-        if (bson_append_bool(bson, ckey, (bson_bool_t)number.boolValue) != BSON_OK) {
-          NSLog(@"bson error: could not append bool for key '%s'", ckey);
-        }
+    
+    if (eqType(@encode(int))) {
+      if (bson_append_int(b, key, number.intValue) != BSON_OK) {
+        NSLog(@"bson error: could not append int for key '%s'", key);
       }
     }
-    
-    // Data
-    else if ([obj isKindOfClass:[NSData class]]) {
-      NSData *data = (NSData *)obj;
-      int bufLen = (int)data.length;
-      const char buf[bufLen];
-      [data getBytes:(void *)buf length:bufLen];
-      
-      if (bson_append_binary(bson, ckey, BSON_BIN_BINARY, buf, bufLen) != BSON_OK) {
-        NSLog(@"bson error: could not append binary for key '%s'", ckey);
+    else if (eqType(@encode(long))) {
+      if (bson_append_long(b, key, number.longValue) != BSON_OK) {
+        NSLog(@"bson error: could not append long for key '%s'", key);
       }
     }
-    
-    // Null
-    else if ([obj isKindOfClass:[NSNull class]]) {
-      if (bson_append_null(bson, ckey) != BSON_OK) {
-        NSLog(@"bson error: could not append null for key '%s'", ckey);
+    else if (eqType(@encode(double))) {
+      if (bson_append_double(b, key, number.doubleValue) != BSON_OK) {
+        NSLog(@"bson error: could not append double for key '%s'", key);
+      }
+    }
+    else if (eqType(@encode(BOOL))) {
+      if (bson_append_bool(b, key, (bson_bool_t)number.boolValue) != BSON_OK) {
+        NSLog(@"bson error: could not append bool for key '%s'", key);
       }
     }
   }
-  
-  bson_finish(bson);
+  /* data */ else if ([obj isKindOfClass:[NSData class]]) {
+    NSData *data = (NSData *)obj;
+    int bufLen = (int)data.length;
+    const char buf[bufLen];
+    [data getBytes:(void *)buf length:bufLen];
+    
+    if (bson_append_binary(b, key, BSON_BIN_BINARY, buf, bufLen) != BSON_OK) {
+      NSLog(@"bson error: could not append binary for key '%s'", key);
+    }
+  }
+  /* null */ else if ([obj isKindOfClass:[NSNull class]]) {
+    if (bson_append_null(b, key) != BSON_OK) {
+      NSLog(@"bson error: could not append null for key '%s'", key);
+    }
+  }
 }
 
 - (void)performWithDatabase:(NSString *)db collection:(NSString *)collection block:(dispatch_block_t)block {
@@ -170,6 +172,13 @@ static void bsonForDictionary(bson *bson, NSDictionary *dict) {
 
 - (void)insert:(NSDictionary *)doc {
   // TODO: impl
+  bson b[1];
+  bson_init(b);
+  
+  id obj = nil;
+  encodeBson(b, obj, NULL);
+  
+  bson_finish(b);
 }
 
 @end
