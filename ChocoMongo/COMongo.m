@@ -207,11 +207,40 @@ static void encodeBson(bson *b, id obj, const char *key, BOOL insertRootId) {
   
   bson_finish(b);
   
-  if (mongo_insert(&mongo_, dbcol.UTF8String, b) != MONGO_OK) {
+  int status = mongo_insert(&mongo_, dbcol.UTF8String, b);
+  if (status != MONGO_OK) {
     NSLog(@"mongo error: could not insert document into %@", dbcol);
-    return NO;
   }
-  return YES;
+  
+  bson_destroy(b);
+  
+  return (status == MONGO_OK);
+}
+
+- (NSArray *)find:(NSDictionary *)query inCollection:(NSString *)collection limit:(NSInteger)limit skip:(NSInteger)skip {
+  assert(self.database.length > 0);
+  assert(collection.length > 0);
+  bson b[1];
+  
+  // Encode query
+  if (query == nil) {
+    bson_empty(b);
+  }
+  else {
+    encodeBson(b, query, NULL, NO);
+  }
+  
+  NSString *namespace = [NSString stringWithFormat:@"%@.%@", self.database, collection];
+  
+  mongo_cursor *cursor = mongo_find(&mongo_, namespace.UTF8String, b, NULL /* fields to be returned */, limit, skip, 0 /* cursor flags */);
+  while(mongo_cursor_next(cursor) == MONGO_OK) {
+    bson_print(&cursor->current);
+  }
+  
+  mongo_cursor_destroy(cursor);
+  bson_destroy(b);
+  
+  return nil;
 }
 
 @end

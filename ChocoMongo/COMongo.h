@@ -30,6 +30,12 @@
  */
 - (BOOL)insert:(NSDictionary *)doc intoCollection:(NSString *)collection;
 
+/*!
+ @method find:inCollection:limit:skip:
+ @abstract Finds matching documents in the provided collection.
+ */
+- (NSArray *)find:(NSDictionary *)query inCollection:(NSString *)collection limit:(NSInteger)limit skip:(NSInteger)skip;
+
 @end
 
 @interface COMongo (BSON)
