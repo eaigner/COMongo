@@ -49,7 +49,10 @@
   
   COMongo *mongo = [[COMongo alloc] initWithHost:MONGO_HOST
                                             port:MONGO_PORT
-                                        database:MONGO_DB];
+                                        database:MONGO_DB
+                                            user:MONGO_USER
+                                        password:MONGO_PW
+                                operationTimeout:1000];
   
   NSError *error = nil;
   BOOL connected = [mongo connect:&error];
@@ -71,7 +74,7 @@
     STAssertNotNil(result, nil);
     STAssertEqualObjects(result, doc, nil);
     
-    //[mongo destroy];
+    [mongo destroy];
   }
 }
 

@@ -93,7 +93,8 @@
 }
 
 - (void)destroy {
-  mongo_destroy(mongo_);
+  // FIXME: calling mongo_destroy crashes here!
+  // mongo_destroy(mongo_);
 }
 
 - (const char *)namespaceForCollection:(NSString *)collection {
