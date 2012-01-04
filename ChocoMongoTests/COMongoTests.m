@@ -23,7 +23,7 @@
                         [NSDictionary dictionaryWithObject:@"dictObj1" forKey:@"dictKey1"], @"dictKey0",
                         nil];
   
-  [[COMongo new] encodeObject:dict toBSON:b];
+  [[COMongo new] encodeObject:dict toBSON:b insertNewRootID:NO];
   
   bson_finish(b);
   bson_print(b);

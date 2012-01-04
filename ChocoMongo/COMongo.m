@@ -81,7 +81,7 @@
   mongo_destroy(&conn_);
 }
 
-static void encodeBson(bson *b, id obj, const char *key) {
+static void encodeBson(bson *b, id obj, const char *key, BOOL insertRootId) {
   /* dicts */ if ([obj isKindOfClass:[NSDictionary class]]) {
     // If this is not a root object and thus a recursive call, start a new object with the key
     if (key != NULL) {
@@ -92,7 +92,7 @@ static void encodeBson(bson *b, id obj, const char *key) {
     
     // Append _id key first, as recommended by mongo docs
     NSString *oidStr = [obj objectForKey:kCOMongoIDKey];
-    if (oidStr == nil && key == NULL) {
+    if (oidStr == nil && key == NULL && insertRootId) {
       bson_append_new_oid(b, kCOMongoIDKey.UTF8String);
     }
     else if (oidStr.length > 0) {
@@ -106,7 +106,7 @@ static void encodeBson(bson *b, id obj, const char *key) {
       if ([key isEqualToString:kCOMongoIDKey]) {
         continue;
       }
-      encodeBson(b, [obj objectForKey:key], key.UTF8String);
+      encodeBson(b, [obj objectForKey:key], key.UTF8String, insertRootId);
     }
     
     if (key != NULL) {
@@ -122,7 +122,7 @@ static void encodeBson(bson *b, id obj, const char *key) {
       }
     }
     for (int c=0; c<[obj count]; c++) {
-      encodeBson(b, [obj objectAtIndex:c], [[NSString stringWithFormat:@"%d", c] UTF8String]);
+      encodeBson(b, [obj objectAtIndex:c], [[NSString stringWithFormat:@"%d", c] UTF8String], insertRootId);
     }
     if (key != NULL) {
       if (bson_append_finish_array(b) != BSON_OK) {
@@ -191,8 +191,8 @@ static void encodeBson(bson *b, id obj, const char *key) {
 
 @implementation COMongo (BSON)
 
-- (void)encodeObject:(id)obj toBSON:(bson *)bson {
-  encodeBson(bson, obj, NULL);
+- (void)encodeObject:(id)obj toBSON:(bson *)bson insertNewRootID:(BOOL)flag {
+  encodeBson(bson, obj, NULL, flag);
 }
 
 @end
