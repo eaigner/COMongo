@@ -23,7 +23,7 @@
 
 @implementation COMongo {
 @private
-  mongo mongo_;
+  mongo mongo_[1];
 }
 @synthesize host = host_;
 @synthesize port = port_;
@@ -49,8 +49,8 @@
     self.password = password;
     self.operationTimeout = millis;
     
-    mongo_init(&mongo_);
-    mongo_set_op_timeout(&mongo_, millis);
+    mongo_init(mongo_);
+    mongo_set_op_timeout(mongo_, millis);
   }
   return self;
 }
@@ -60,11 +60,11 @@
 }
 
 - (BOOL)connect:(NSError **)error {
-  int status = mongo_connect(&mongo_, self.host.UTF8String, self.port);
+  int status = mongo_connect(mongo_, self.host.UTF8String, self.port);
   
   if(status != MONGO_OK) {
     NSString *errorCause = nil;
-    switch (mongo_.err) {
+    switch (mongo_->err) {
       case MONGO_CONN_NO_SOCKET: errorCause = @"could not create socket"; break;
       case MONGO_CONN_FAIL: errorCause = @"connection failed"; break;
       case MONGO_CONN_ADDR_FAIL: errorCause = @"could not get address info"; break;
@@ -84,7 +84,7 @@
     }
   }
   else if (self.database.length > 0 && self.user.length > 0 && self.password.length > 0) {
-    if (mongo_cmd_authenticate(&mongo_, self.database.UTF8String, self.user.UTF8String, self.password.UTF8String) != MONGO_OK) {
+    if (mongo_cmd_authenticate(mongo_, self.database.UTF8String, self.user.UTF8String, self.password.UTF8String) != MONGO_OK) {
       NSLog(@"mongo error: could not authenticate '%@' with '%@'", self.user, self.database);
     }
   }
@@ -93,7 +93,7 @@
 }
 
 - (void)destroy {
-  mongo_destroy(&mongo_);
+  mongo_destroy(mongo_);
 }
 
 static void encodeBson(bson *b, id obj, const char *key, BOOL insertRootId) {
@@ -265,8 +265,9 @@ static id decodeBson(bson *b, id collection) {
 - (BOOL)insert:(NSDictionary *)doc intoCollection:(NSString *)collection {
   assert(self.database.length > 0);
   assert(collection.length > 0);
-  assert(mongo_.connected);
-  NSString *dbcol = [NSString stringWithFormat:@"%@.%@", self.database, collection];
+  assert(mongo_->connected);
+  
+  
   
   bson b[1];
   bson_init(b);
@@ -275,9 +276,11 @@ static id decodeBson(bson *b, id collection) {
   
   bson_finish(b);
   
-  int status = mongo_insert(&mongo_, dbcol.UTF8String, b);
+  NSString *namespace = [NSString stringWithFormat:@"%@.%@", self.database, collection];
+  
+  int status = mongo_insert(mongo_, namespace.UTF8String, b);
   if (status != MONGO_OK) {
-    NSLog(@"mongo error: could not insert document into %@", dbcol);
+    NSLog(@"mongo error: could not insert document into '%@'", namespace);
   }
   
   return (status == MONGO_OK);
@@ -286,6 +289,7 @@ static id decodeBson(bson *b, id collection) {
 - (NSArray *)find:(NSDictionary *)query inCollection:(NSString *)collection limit:(NSInteger)limit skip:(NSInteger)skip {
   assert(self.database.length > 0);
   assert(collection.length > 0);
+  assert(mongo_->connected);
   
   // Encode query
   bson bsonQuery[1];
@@ -300,7 +304,7 @@ static id decodeBson(bson *b, id collection) {
 
   NSString *namespace = [NSString stringWithFormat:@"%@.%@", self.database, collection];
   
-  mongo_cursor *cursor = mongo_find(&mongo_,
+  mongo_cursor *cursor = mongo_find(mongo_,
                                     namespace.UTF8String,
                                     bsonQuery,
                                     NULL,
