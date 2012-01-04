@@ -107,7 +107,9 @@ static void bsonForDictionary(bson *bson, NSDictionary *dict) {
     // Strings
     if ([obj isKindOfClass:[NSString class]]) {
       const char *cvalue = [obj UTF8String];
-      bson_append_string(bson, ckey, cvalue);
+      if (bson_append_string(bson, ckey, cvalue) != BSON_OK) {
+        NSLog(@"bson error: could not append string for key '%s'", ckey);
+      }
     }
     
     // Numbers
@@ -118,13 +120,31 @@ static void bsonForDictionary(bson *bson, NSDictionary *dict) {
 #define eqType(x) (strncmp(numType, x, strlen(x)) == 0)
       
       if (eqType(@encode(int))) {
-        bson_append_int(bson, ckey, number.intValue);
+        if (bson_append_int(bson, ckey, number.intValue) != BSON_OK) {
+          NSLog(@"bson error: could not append int for key '%s'", ckey);
+        }
       }
       else if (eqType(@encode(long))) {
-        bson_append_long(bson, ckey, number.longValue);
+        if (bson_append_long(bson, ckey, number.longValue) != BSON_OK) {
+          NSLog(@"bson error: could not append long for key '%s'", ckey);
+        }
       }
       else if (eqType(@encode(double))) {
-        bson_append_double(bson, ckey, number.doubleValue);
+        if (bson_append_double(bson, ckey, number.doubleValue) != BSON_OK) {
+          NSLog(@"bson error: could not append double for key '%s'", ckey);
+        }
+      }
+    }
+    
+    // Data
+    else if ([obj isKindOfClass:[NSData class]]) {
+      NSData *data = (NSData *)obj;
+      int bufLen = (int)data.length;
+      const char buf[bufLen];
+      [data getBytes:(void *)buf length:bufLen];
+      
+      if (bson_append_binary(bson, ckey, BSON_BIN_BINARY, buf, bufLen) != BSON_OK) {
+        NSLog(@"bson error: could not append binary for key '%s'", ckey);
       }
     }
   }
