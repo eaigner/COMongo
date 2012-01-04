@@ -1,0 +1,427 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		DCCC2E1C14B4621D0097E26B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCCC2E1B14B4621D0097E26B /* UIKit.framework */; };
+		DCCC2E1E14B4621D0097E26B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCCC2E1D14B4621D0097E26B /* Foundation.framework */; };
+		DCCC2E2014B4621D0097E26B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCCC2E1F14B4621D0097E26B /* CoreGraphics.framework */; };
+		DCCC2E2614B4621D0097E26B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCCC2E2414B4621D0097E26B /* InfoPlist.strings */; };
+		DCCC2E2814B4621D0097E26B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DCCC2E2714B4621D0097E26B /* main.m */; };
+		DCCC2E2C14B4621D0097E26B /* COAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DCCC2E2B14B4621D0097E26B /* COAppDelegate.m */; };
+		DCCC2E3414B4621D0097E26B /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCCC2E3314B4621D0097E26B /* SenTestingKit.framework */; };
+		DCCC2E3514B4621D0097E26B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCCC2E1B14B4621D0097E26B /* UIKit.framework */; };
+		DCCC2E3614B4621D0097E26B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCCC2E1D14B4621D0097E26B /* Foundation.framework */; };
+		DCCC2E3E14B4621D0097E26B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCCC2E3C14B4621D0097E26B /* InfoPlist.strings */; };
+		DCCC2E4114B4621D0097E26B /* ChocoMongoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DCCC2E4014B4621D0097E26B /* ChocoMongoTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		DCCC2E3714B4621D0097E26B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DCCC2E0E14B4621D0097E26B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DCCC2E1614B4621D0097E26B;
+			remoteInfo = ChocoMongo;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		DCCC2E1714B4621D0097E26B /* ChocoMongo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChocoMongo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DCCC2E1B14B4621D0097E26B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		DCCC2E1D14B4621D0097E26B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		DCCC2E1F14B4621D0097E26B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		DCCC2E2314B4621D0097E26B /* ChocoMongo-Info.plist */ = {isa = PBXFileReference; path = "ChocoMongo-Info.plist"; sourceTree = "<group>"; };
+		DCCC2E2514B4621D0097E26B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DCCC2E2714B4621D0097E26B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		DCCC2E2914B4621D0097E26B /* ChocoMongo-Prefix.pch */ = {isa = PBXFileReference; path = "ChocoMongo-Prefix.pch"; sourceTree = "<group>"; };
+		DCCC2E2A14B4621D0097E26B /* COAppDelegate.h */ = {isa = PBXFileReference; path = COAppDelegate.h; sourceTree = "<group>"; };
+		DCCC2E2B14B4621D0097E26B /* COAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = COAppDelegate.m; sourceTree = "<group>"; };
+		DCCC2E3214B4621D0097E26B /* ChocoMongoTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChocoMongoTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DCCC2E3314B4621D0097E26B /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		DCCC2E3B14B4621D0097E26B /* ChocoMongoTests-Info.plist */ = {isa = PBXFileReference; path = "ChocoMongoTests-Info.plist"; sourceTree = "<group>"; };
+		DCCC2E3D14B4621D0097E26B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DCCC2E3F14B4621D0097E26B /* ChocoMongoTests.h */ = {isa = PBXFileReference; path = ChocoMongoTests.h; sourceTree = "<group>"; };
+		DCCC2E4014B4621D0097E26B /* ChocoMongoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChocoMongoTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DCCC2E1414B4621D0097E26B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DCCC2E1C14B4621D0097E26B /* UIKit.framework in Frameworks */,
+				DCCC2E1E14B4621D0097E26B /* Foundation.framework in Frameworks */,
+				DCCC2E2014B4621D0097E26B /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DCCC2E2E14B4621D0097E26B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DCCC2E3414B4621D0097E26B /* SenTestingKit.framework in Frameworks */,
+				DCCC2E3514B4621D0097E26B /* UIKit.framework in Frameworks */,
+				DCCC2E3614B4621D0097E26B /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		DCCC2E0C14B4621D0097E26B = {
+			isa = PBXGroup;
+			children = (
+				DCCC2E2114B4621D0097E26B /* ChocoMongo */,
+				DCCC2E3914B4621D0097E26B /* ChocoMongoTests */,
+				DCCC2E1A14B4621D0097E26B /* Frameworks */,
+				DCCC2E1814B4621D0097E26B /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		DCCC2E1814B4621D0097E26B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DCCC2E1714B4621D0097E26B /* ChocoMongo.app */,
+				DCCC2E3214B4621D0097E26B /* ChocoMongoTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DCCC2E1A14B4621D0097E26B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DCCC2E1B14B4621D0097E26B /* UIKit.framework */,
+				DCCC2E1D14B4621D0097E26B /* Foundation.framework */,
+				DCCC2E1F14B4621D0097E26B /* CoreGraphics.framework */,
+				DCCC2E3314B4621D0097E26B /* SenTestingKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DCCC2E2114B4621D0097E26B /* ChocoMongo */ = {
+			isa = PBXGroup;
+			children = (
+				DCCC2E2A14B4621D0097E26B /* COAppDelegate.h */,
+				DCCC2E2B14B4621D0097E26B /* COAppDelegate.m */,
+				DCCC2E2214B4621D0097E26B /* Supporting Files */,
+			);
+			path = ChocoMongo;
+			sourceTree = "<group>";
+		};
+		DCCC2E2214B4621D0097E26B /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				DCCC2E2314B4621D0097E26B /* ChocoMongo-Info.plist */,
+				DCCC2E2414B4621D0097E26B /* InfoPlist.strings */,
+				DCCC2E2714B4621D0097E26B /* main.m */,
+				DCCC2E2914B4621D0097E26B /* ChocoMongo-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		DCCC2E3914B4621D0097E26B /* ChocoMongoTests */ = {
+			isa = PBXGroup;
+			children = (
+				DCCC2E3F14B4621D0097E26B /* ChocoMongoTests.h */,
+				DCCC2E4014B4621D0097E26B /* ChocoMongoTests.m */,
+				DCCC2E3A14B4621D0097E26B /* Supporting Files */,
+			);
+			path = ChocoMongoTests;
+			sourceTree = "<group>";
+		};
+		DCCC2E3A14B4621D0097E26B /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				DCCC2E3B14B4621D0097E26B /* ChocoMongoTests-Info.plist */,
+				DCCC2E3C14B4621D0097E26B /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		DCCC2E1614B4621D0097E26B /* ChocoMongo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DCCC2E4414B4621D0097E26B /* Build configuration list for PBXNativeTarget "ChocoMongo" */;
+			buildPhases = (
+				DCCC2E1314B4621D0097E26B /* Sources */,
+				DCCC2E1414B4621D0097E26B /* Frameworks */,
+				DCCC2E1514B4621D0097E26B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ChocoMongo;
+			productName = ChocoMongo;
+			productReference = DCCC2E1714B4621D0097E26B /* ChocoMongo.app */;
+			productType = "com.apple.product-type.application";
+		};
+		DCCC2E3114B4621D0097E26B /* ChocoMongoTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DCCC2E4714B4621D0097E26B /* Build configuration list for PBXNativeTarget "ChocoMongoTests" */;
+			buildPhases = (
+				DCCC2E2D14B4621D0097E26B /* Sources */,
+				DCCC2E2E14B4621D0097E26B /* Frameworks */,
+				DCCC2E2F14B4621D0097E26B /* Resources */,
+				DCCC2E3014B4621D0097E26B /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DCCC2E3814B4621D0097E26B /* PBXTargetDependency */,
+			);
+			name = ChocoMongoTests;
+			productName = ChocoMongoTests;
+			productReference = DCCC2E3214B4621D0097E26B /* ChocoMongoTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DCCC2E0E14B4621D0097E26B /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+				ORGANIZATIONNAME = chocomoko.com;
+			};
+			buildConfigurationList = DCCC2E1114B4621D0097E26B /* Build configuration list for PBXProject "ChocoMongo" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = DCCC2E0C14B4621D0097E26B;
+			productRefGroup = DCCC2E1814B4621D0097E26B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DCCC2E1614B4621D0097E26B /* ChocoMongo */,
+				DCCC2E3114B4621D0097E26B /* ChocoMongoTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		DCCC2E1514B4621D0097E26B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DCCC2E2614B4621D0097E26B /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DCCC2E2F14B4621D0097E26B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DCCC2E3E14B4621D0097E26B /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		DCCC2E3014B4621D0097E26B /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DCCC2E1314B4621D0097E26B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DCCC2E2814B4621D0097E26B /* main.m in Sources */,
+				DCCC2E2C14B4621D0097E26B /* COAppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DCCC2E2D14B4621D0097E26B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DCCC2E4114B4621D0097E26B /* ChocoMongoTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		DCCC2E3814B4621D0097E26B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DCCC2E1614B4621D0097E26B /* ChocoMongo */;
+			targetProxy = DCCC2E3714B4621D0097E26B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		DCCC2E2414B4621D0097E26B /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DCCC2E2514B4621D0097E26B /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		DCCC2E3C14B4621D0097E26B /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DCCC2E3D14B4621D0097E26B /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		DCCC2E4214B4621D0097E26B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		DCCC2E4314B4621D0097E26B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		DCCC2E4514B4621D0097E26B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ChocoMongo/ChocoMongo-Prefix.pch";
+				INFOPLIST_FILE = "ChocoMongo/ChocoMongo-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		DCCC2E4614B4621D0097E26B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ChocoMongo/ChocoMongo-Prefix.pch";
+				INFOPLIST_FILE = "ChocoMongo/ChocoMongo-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		DCCC2E4814B4621D0097E26B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/ChocoMongo.app/ChocoMongo";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ChocoMongo/ChocoMongo-Prefix.pch";
+				INFOPLIST_FILE = "ChocoMongoTests/ChocoMongoTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		DCCC2E4914B4621D0097E26B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/ChocoMongo.app/ChocoMongo";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ChocoMongo/ChocoMongo-Prefix.pch";
+				INFOPLIST_FILE = "ChocoMongoTests/ChocoMongoTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DCCC2E1114B4621D0097E26B /* Build configuration list for PBXProject "ChocoMongo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DCCC2E4214B4621D0097E26B /* Debug */,
+				DCCC2E4314B4621D0097E26B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DCCC2E4414B4621D0097E26B /* Build configuration list for PBXNativeTarget "ChocoMongo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DCCC2E4514B4621D0097E26B /* Debug */,
+				DCCC2E4614B4621D0097E26B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		DCCC2E4714B4621D0097E26B /* Build configuration list for PBXNativeTarget "ChocoMongoTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DCCC2E4814B4621D0097E26B /* Debug */,
+				DCCC2E4914B4621D0097E26B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = DCCC2E0E14B4621D0097E26B /* Project object */;
+}
