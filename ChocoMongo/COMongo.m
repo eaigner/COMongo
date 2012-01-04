@@ -152,6 +152,13 @@ static void bsonForDictionary(bson *bson, NSDictionary *dict) {
         NSLog(@"bson error: could not append binary for key '%s'", ckey);
       }
     }
+    
+    // Null
+    else if ([obj isKindOfClass:[NSNull class]]) {
+      if (bson_append_null(bson, ckey) != BSON_OK) {
+        NSLog(@"bson error: could not append null for key '%s'", ckey);
+      }
+    }
   }
   
   bson_finish(bson);
