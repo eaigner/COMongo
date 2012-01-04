@@ -25,6 +25,7 @@
 		DCCC2E6D14B46A1B0097E26B /* mongo.c in Sources */ = {isa = PBXBuildFile; fileRef = DCCC2E6314B46A1B0097E26B /* mongo.c */; settings = {COMPILER_FLAGS = "-w"; }; };
 		DCCC2E6E14B46A1B0097E26B /* net.c in Sources */ = {isa = PBXBuildFile; fileRef = DCCC2E6514B46A1B0097E26B /* net.c */; };
 		DCCC2E6F14B46A1B0097E26B /* numbers.c in Sources */ = {isa = PBXBuildFile; fileRef = DCCC2E6714B46A1B0097E26B /* numbers.c */; };
+		DCCC2E7B14B497340097E26B /* COMongoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DCCC2E7A14B497340097E26B /* COMongoTests.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +69,8 @@
 		DCCC2E6614B46A1B0097E26B /* net.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = net.h; sourceTree = "<group>"; };
 		DCCC2E6714B46A1B0097E26B /* numbers.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = numbers.c; sourceTree = "<group>"; };
 		DCCC2E6814B46A1B0097E26B /* platform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = platform.h; sourceTree = "<group>"; };
+		DCCC2E7914B497340097E26B /* COMongoTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = COMongoTests.h; sourceTree = "<group>"; };
+		DCCC2E7A14B497340097E26B /* COMongoTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = COMongoTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,6 +156,8 @@
 			isa = PBXGroup;
 			children = (
 				DCCC2E3A14B4621D0097E26B /* Supporting Files */,
+				DCCC2E7914B497340097E26B /* COMongoTests.h */,
+				DCCC2E7A14B497340097E26B /* COMongoTests.m */,
 			);
 			path = ChocoMongoTests;
 			sourceTree = "<group>";
@@ -334,6 +339,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DCCC2E7B14B497340097E26B /* COMongoTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

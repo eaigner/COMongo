@@ -8,7 +8,6 @@
 
 #import "COMongo.h"
 
-#import "mongo.h"
 
 #define kCOMongoErrorDomain @"com.chocomoko.ChocoMongo"
 #define kCOMongoIDKey @"_id"
@@ -186,13 +185,14 @@ static void encodeBson(bson *b, id obj, const char *key) {
 
 - (void)insert:(NSDictionary *)doc {
   // TODO: impl
-  bson b[1];
-  bson_init(b);
-  
-  id obj = nil;
-  encodeBson(b, obj, NULL);
-  
-  bson_finish(b);
+}
+
+@end
+
+@implementation COMongo (BSON)
+
+- (void)encodeObject:(id)obj toBSON:(bson *)bson {
+  encodeBson(bson, obj, NULL);
 }
 
 @end

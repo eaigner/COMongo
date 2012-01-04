@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+#import "mongo.h"
+
 @interface COMongo : NSObject
 @property (nonatomic, copy, readonly) NSString *host;
 @property (nonatomic, assign, readonly) int port;
@@ -32,5 +34,10 @@
  */
 - (void)insert:(NSDictionary *)doc;
 
+@end
+
+@interface COMongo (BSON)
+
+- (void)encodeObject:(id)obj toBSON:(bson *)bson;
 
 @end
