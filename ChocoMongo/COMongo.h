@@ -41,5 +41,6 @@
 @interface COMongo (BSON)
 
 - (void)encodeObject:(id)obj toBSON:(bson *)bson insertNewRootID:(BOOL)flag;
+- (id)decodeBSONToObject:(bson *)bson;
 
 @end

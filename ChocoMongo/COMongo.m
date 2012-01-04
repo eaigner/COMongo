@@ -194,6 +194,88 @@ static void encodeBson(bson *b, id obj, const char *key, BOOL insertRootId) {
   }
 }
 
+static void decodeBsonAddToCollection(const char *key, id value, id collection) {
+  if ([collection isKindOfClass:[NSMutableDictionary class]]) {
+    NSString *keyStr = [NSString stringWithCString:key encoding:NSUTF8StringEncoding];
+    [collection setObject:value forKey:keyStr];
+  }
+  else if ([collection isKindOfClass:[NSMutableArray class]]) {
+    [collection addObject:value];
+  }
+  else {
+    assert(NO && "collection is not an object or array");
+  }
+}
+
+static id decodeBson(bson *b, id collection) {
+  bson_iterator iter[1];
+  bson_iterator_init(iter, b);
+  
+  // Set current collection if nil
+  if (collection == nil) {
+    bson_type initType = bson_iterator_type(iter);
+    if (initType == BSON_OBJECT) {
+      collection = [NSMutableDictionary new];
+    }
+    else if (initType == BSON_ARRAY) {
+      collection = [NSMutableArray new];
+    }
+  }
+  
+  // Iterate
+  while (bson_iterator_more(iter)) {
+    bson_type type = bson_iterator_next(iter);
+    const char *key = bson_iterator_key(iter);
+    
+    id obj = nil;
+    
+    if (type == BSON_OBJECT) {
+      bson sub[1];
+      bson_iterator_subobject(iter, sub);
+      obj = decodeBson(sub, [NSMutableDictionary new]);
+    }
+    else if (type == BSON_ARRAY) {
+      bson sub[1];
+      bson_iterator_subobject(iter, sub);
+      obj = decodeBson(sub, [NSMutableArray new]);
+    }
+    else {
+      
+#define valStr [NSString stringWithCString:bson_iterator_value(iter) encoding:NSUTF8StringEncoding]
+      
+      if (type == BSON_STRING) {
+        obj = valStr;
+      }
+      else if (type == BSON_INT) {
+        obj = [NSNumber numberWithInt:[valStr integerValue]];
+      }
+      else if (type == BSON_LONG) {
+        obj = [NSNumber numberWithLong:(long)[valStr longLongValue]];
+      }
+      else if (type == BSON_DOUBLE) {
+        obj = [NSNumber numberWithDouble:[valStr doubleValue]];
+      }
+      else if (type == BSON_BOOL) {
+        obj = [NSNumber numberWithBool:[valStr isEqualToString:@"true"]];
+      }
+      else if (type == BSON_BINDATA) {
+        const char *buf = bson_iterator_bin_data(iter);
+        int bufLen = bson_iterator_bin_len(iter);
+        obj = [NSData dataWithBytes:buf length:bufLen];
+      }
+      else if (type == BSON_NULL) {
+        obj = [NSNull null];
+      }
+    }
+    
+    if (obj != nil) {
+      decodeBsonAddToCollection(key, obj, collection);
+    }
+  }
+  
+  return collection;
+}
+
 - (BOOL)insert:(NSDictionary *)doc intoCollection:(NSString *)collection {
   assert(self.database.length > 0);
   assert(collection.length > 0);
@@ -219,26 +301,18 @@ static void encodeBson(bson *b, id obj, const char *key, BOOL insertRootId) {
   assert(self.database.length > 0);
   assert(collection.length > 0);
   
-  limit = 30;
-  
+  // Encode query
   bson bsonQuery[1];
   bson_init(bsonQuery);
-  
-  // Encode query
   if (query != nil) {
     encodeBson(bsonQuery, query, NULL, NO);
   }
   else {
     bson_empty(bsonQuery);
-  }
-  
+  }  
   bson_finish(bsonQuery);
-  
+
   NSString *namespace = [NSString stringWithFormat:@"%@.%@", self.database, collection];
-  
-  NSLog(@"namespace: %@", namespace);
-  printf("query");
-  bson_print(bsonQuery);
   
   mongo_cursor *cursor = mongo_find(&mongo_,
                                     namespace.UTF8String,
@@ -249,8 +323,8 @@ static void encodeBson(bson *b, id obj, const char *key, BOOL insertRootId) {
                                     0); // cursor flags */
   
   while (cursor != NULL && mongo_cursor_next(cursor) == MONGO_OK) {
-    printf("NEXT CURSOR OBJ ---------------------------------");
-    bson_print(&cursor->current);
+    id obj = decodeBson(&cursor->current, nil);
+    NSLog(@"obj: %@", obj);
   }
   
   mongo_cursor_destroy(cursor);
@@ -264,6 +338,10 @@ static void encodeBson(bson *b, id obj, const char *key, BOOL insertRootId) {
 
 - (void)encodeObject:(id)obj toBSON:(bson *)bson insertNewRootID:(BOOL)flag {
   encodeBson(bson, obj, NULL, flag);
+}
+
+- (id)decodeBSONToObject:(bson *)bson {
+  return decodeBson(bson, nil);
 }
 
 @end
