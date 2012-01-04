@@ -134,6 +134,11 @@ static void bsonForDictionary(bson *bson, NSDictionary *dict) {
           NSLog(@"bson error: could not append double for key '%s'", ckey);
         }
       }
+      else if (eqType(@encode(BOOL))) {
+        if (bson_append_bool(bson, ckey, (bson_bool_t)number.boolValue) != BSON_OK) {
+          NSLog(@"bson error: could not append bool for key '%s'", ckey);
+        }
+      }
     }
     
     // Data
