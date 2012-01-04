@@ -96,6 +96,10 @@
   mongo_destroy(mongo_);
 }
 
+- (const char *)namespaceForCollection:(NSString *)collection {
+  return [[NSString stringWithFormat:@"%@.%@", self.database, collection] UTF8String];
+}
+
 static void encodeBson(bson *b, id obj, const char *key, BOOL insertRootId) {
   /* dicts */ if ([obj isKindOfClass:[NSDictionary class]]) {
     // If this is not a root object and thus a recursive call, start a new object with the key
@@ -276,11 +280,11 @@ static id decodeBson(bson *b, id collection) {
   
   bson_finish(b);
   
-  NSString *namespace = [NSString stringWithFormat:@"%@.%@", self.database, collection];
+  const char *ns = [self namespaceForCollection:collection];
+  int status = mongo_insert(mongo_, ns, b);
   
-  int status = mongo_insert(mongo_, namespace.UTF8String, b);
   if (status != MONGO_OK) {
-    NSLog(@"mongo error: could not insert document into '%@'", namespace);
+    NSLog(@"mongo error: could not insert document into '%s'", ns);
   }
   
   return (status == MONGO_OK);
@@ -301,18 +305,12 @@ static id decodeBson(bson *b, id collection) {
     bson_empty(bsonQuery);
   }  
   bson_finish(bsonQuery);
-
-  NSString *namespace = [NSString stringWithFormat:@"%@.%@", self.database, collection];
-  
-  mongo_cursor *cursor = mongo_find(mongo_,
-                                    namespace.UTF8String,
-                                    bsonQuery,
-                                    NULL,
-                                    limit,
-                                    skip,
-                                    0); // cursor flags */
   
   NSMutableArray *results = [NSMutableArray new];
+  
+  const char *ns = [self namespaceForCollection:collection];
+  mongo_cursor *cursor = mongo_find(mongo_, ns, bsonQuery, NULL, limit, skip, 0);
+  
   while (cursor != NULL && mongo_cursor_next(cursor) == MONGO_OK) {
     id obj = [self decodeBSONToObject:&cursor->current];
     [results addObject:obj];

@@ -23,6 +23,7 @@
 
 - (BOOL)connect:(NSError **)error;
 - (void)destroy;
+- (const char *)namespaceForCollection:(NSString *)collection;
 
 /*!
  @method insert:intoCollection:
