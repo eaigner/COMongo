@@ -16,6 +16,6 @@
 - (id)initWithHost:(NSString *)host port:(int)port;
 - (id)initWithHost:(NSString *)host port:(int)port operationTimeout:(int)millis;
 
-- (BOOL)connect;
+- (BOOL)connect:(NSError **)error;
 
 @end

@@ -74,6 +74,7 @@
 		DCCC2E6614B46A1B0097E26B /* net.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = net.h; sourceTree = "<group>"; };
 		DCCC2E6714B46A1B0097E26B /* numbers.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = numbers.c; sourceTree = "<group>"; };
 		DCCC2E6814B46A1B0097E26B /* platform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = platform.h; sourceTree = "<group>"; };
+		DCCC2E7014B46E4F0097E26B /* ChocoMongo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChocoMongo.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -175,6 +176,7 @@
 		DCCC2E4A14B462320097E26B /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				DCCC2E7014B46E4F0097E26B /* ChocoMongo.h */,
 				DCCC2E4F14B462840097E26B /* COMongoObject.h */,
 				DCCC2E5014B462840097E26B /* COMongoObject.m */,
 				DCCC2E5514B4698A0097E26B /* COMongoConnection.h */,
