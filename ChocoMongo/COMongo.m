@@ -101,6 +101,10 @@
   }
 }
 
+- (const char *)namespaceForCollection:(NSString *)collection {
+  return [[NSString stringWithFormat:@"%@.%@", self.database, collection] UTF8String];
+}
+
 - (BOOL)isHealthy {
   return (mongo_check_connection(mongo_) == MONGO_OK);
 }
@@ -115,10 +119,6 @@
 
 - (NSInteger)lastErrorCode {
   return (NSInteger)mongo_->lasterrcode;
-}
-
-- (const char *)namespaceForCollection:(NSString *)collection {
-  return [[NSString stringWithFormat:@"%@.%@", self.database, collection] UTF8String];
 }
 
 static void encodeBson(bson *b, id obj, const char *key, BOOL insertRootId) {

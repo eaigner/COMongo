@@ -18,6 +18,13 @@
 @property (nonatomic, copy, readonly) NSString *user;
 @property (nonatomic, copy, readonly) NSString *password;
 
+- (id)initWithHost:(NSString *)host port:(int)port database:(NSString *)db;
+- (id)initWithHost:(NSString *)host port:(int)port database:(NSString *)db user:(NSString *)user password:(NSString *)password operationTimeout:(int)millis;
+
+- (BOOL)connect:(NSError **)error;
+- (void)destroy;
+- (const char *)namespaceForCollection:(NSString *)collection;
+
 /*!
  @property healthy
  @abstract Checks if the connection is healthy
@@ -35,13 +42,6 @@
  @abstract Returns the last encountered error code
  */
 @property (nonatomic, readonly) NSInteger lastErrorCode;
-
-- (id)initWithHost:(NSString *)host port:(int)port database:(NSString *)db;
-- (id)initWithHost:(NSString *)host port:(int)port database:(NSString *)db user:(NSString *)user password:(NSString *)password operationTimeout:(int)millis;
-
-- (BOOL)connect:(NSError **)error;
-- (void)destroy;
-- (const char *)namespaceForCollection:(NSString *)collection;
 
 /*!
  @method insert:intoCollection:
