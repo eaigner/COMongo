@@ -1,5 +1,5 @@
 //
-//  COMongoConnection.h
+//  COMongo.h
 //  ChocoMongo
 //
 //  Created by Erik Aigner on 04.01.12.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface COMongoConnection : NSObject
+@interface COMongo : NSObject
 @property (nonatomic, copy, readonly) NSString *host;
 @property (nonatomic, assign, readonly) int port;
 @property (nonatomic, assign, readonly) int operationTimeout;

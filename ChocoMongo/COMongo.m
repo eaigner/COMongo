@@ -1,22 +1,24 @@
 //
-//  COMongoConnection.m
+//  COMongo.m
 //  ChocoMongo
 //
 //  Created by Erik Aigner on 04.01.12.
 //  Copyright (c) 2012 chocomoko.com. All rights reserved.
 //
 
-#import "COMongoConnection.h"
+#import "COMongo.h"
 
-#import "ChocoMongo.h"
+#import "mongo.h"
 
-@interface COMongoConnection ()
+#define kCOMongoErrorDomain @"com.chocomoko.ChocoMongo"
+
+@interface COMongo ()
 @property (nonatomic, copy, readwrite) NSString *host;
 @property (nonatomic, assign, readwrite) int port;
 @property (nonatomic, assign, readwrite) int operationTimeout;
 @end
 
-@implementation COMongoConnection {
+@implementation COMongo {
 @private
   mongo conn_;
 }

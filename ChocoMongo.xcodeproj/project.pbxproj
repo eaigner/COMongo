@@ -17,9 +17,7 @@
 		DCCC2E3514B4621D0097E26B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCCC2E1B14B4621D0097E26B /* UIKit.framework */; };
 		DCCC2E3614B4621D0097E26B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCCC2E1D14B4621D0097E26B /* Foundation.framework */; };
 		DCCC2E3E14B4621D0097E26B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCCC2E3C14B4621D0097E26B /* InfoPlist.strings */; };
-		DCCC2E5114B462840097E26B /* COMongoObject.m in Sources */ = {isa = PBXBuildFile; fileRef = DCCC2E5014B462840097E26B /* COMongoObject.m */; };
-		DCCC2E5414B464B60097E26B /* COMongoObjectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DCCC2E5314B464B60097E26B /* COMongoObjectTests.m */; };
-		DCCC2E5714B4698A0097E26B /* COMongoConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = DCCC2E5614B4698A0097E26B /* COMongoConnection.m */; };
+		DCCC2E5714B4698A0097E26B /* COMongo.m in Sources */ = {isa = PBXBuildFile; fileRef = DCCC2E5614B4698A0097E26B /* COMongo.m */; };
 		DCCC2E6914B46A1B0097E26B /* bson.c in Sources */ = {isa = PBXBuildFile; fileRef = DCCC2E5B14B46A1B0097E26B /* bson.c */; };
 		DCCC2E6A14B46A1B0097E26B /* encoding.c in Sources */ = {isa = PBXBuildFile; fileRef = DCCC2E5D14B46A1B0097E26B /* encoding.c */; };
 		DCCC2E6B14B46A1B0097E26B /* gridfs.c in Sources */ = {isa = PBXBuildFile; fileRef = DCCC2E5F14B46A1B0097E26B /* gridfs.c */; };
@@ -54,12 +52,8 @@
 		DCCC2E3314B4621D0097E26B /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		DCCC2E3B14B4621D0097E26B /* ChocoMongoTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ChocoMongoTests-Info.plist"; sourceTree = "<group>"; };
 		DCCC2E3D14B4621D0097E26B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		DCCC2E4F14B462840097E26B /* COMongoObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = COMongoObject.h; sourceTree = "<group>"; };
-		DCCC2E5014B462840097E26B /* COMongoObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = COMongoObject.m; sourceTree = "<group>"; };
-		DCCC2E5214B464B60097E26B /* COMongoObjectTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = COMongoObjectTests.h; sourceTree = "<group>"; };
-		DCCC2E5314B464B60097E26B /* COMongoObjectTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = COMongoObjectTests.m; sourceTree = "<group>"; };
-		DCCC2E5514B4698A0097E26B /* COMongoConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = COMongoConnection.h; sourceTree = "<group>"; };
-		DCCC2E5614B4698A0097E26B /* COMongoConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = COMongoConnection.m; sourceTree = "<group>"; };
+		DCCC2E5514B4698A0097E26B /* COMongo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = COMongo.h; sourceTree = "<group>"; };
+		DCCC2E5614B4698A0097E26B /* COMongo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = COMongo.m; sourceTree = "<group>"; };
 		DCCC2E5B14B46A1B0097E26B /* bson.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = bson.c; sourceTree = "<group>"; };
 		DCCC2E5C14B46A1B0097E26B /* bson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bson.h; sourceTree = "<group>"; };
 		DCCC2E5D14B46A1B0097E26B /* encoding.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = encoding.c; sourceTree = "<group>"; };
@@ -74,7 +68,6 @@
 		DCCC2E6614B46A1B0097E26B /* net.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = net.h; sourceTree = "<group>"; };
 		DCCC2E6714B46A1B0097E26B /* numbers.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = numbers.c; sourceTree = "<group>"; };
 		DCCC2E6814B46A1B0097E26B /* platform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = platform.h; sourceTree = "<group>"; };
-		DCCC2E7014B46E4F0097E26B /* ChocoMongo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChocoMongo.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +129,8 @@
 			children = (
 				DCCC2E2A14B4621D0097E26B /* COAppDelegate.h */,
 				DCCC2E2B14B4621D0097E26B /* COAppDelegate.m */,
+				DCCC2E5514B4698A0097E26B /* COMongo.h */,
+				DCCC2E5614B4698A0097E26B /* COMongo.m */,
 				DCCC2E4A14B462320097E26B /* Classes */,
 				DCCC2E5814B469C30097E26B /* Vendor */,
 				DCCC2E2214B4621D0097E26B /* Supporting Files */,
@@ -158,8 +153,6 @@
 			isa = PBXGroup;
 			children = (
 				DCCC2E3A14B4621D0097E26B /* Supporting Files */,
-				DCCC2E5214B464B60097E26B /* COMongoObjectTests.h */,
-				DCCC2E5314B464B60097E26B /* COMongoObjectTests.m */,
 			);
 			path = ChocoMongoTests;
 			sourceTree = "<group>";
@@ -176,11 +169,6 @@
 		DCCC2E4A14B462320097E26B /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				DCCC2E7014B46E4F0097E26B /* ChocoMongo.h */,
-				DCCC2E4F14B462840097E26B /* COMongoObject.h */,
-				DCCC2E5014B462840097E26B /* COMongoObject.m */,
-				DCCC2E5514B4698A0097E26B /* COMongoConnection.h */,
-				DCCC2E5614B4698A0097E26B /* COMongoConnection.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -331,8 +319,7 @@
 			files = (
 				DCCC2E2814B4621D0097E26B /* main.m in Sources */,
 				DCCC2E2C14B4621D0097E26B /* COAppDelegate.m in Sources */,
-				DCCC2E5114B462840097E26B /* COMongoObject.m in Sources */,
-				DCCC2E5714B4698A0097E26B /* COMongoConnection.m in Sources */,
+				DCCC2E5714B4698A0097E26B /* COMongo.m in Sources */,
 				DCCC2E6914B46A1B0097E26B /* bson.c in Sources */,
 				DCCC2E6A14B46A1B0097E26B /* encoding.c in Sources */,
 				DCCC2E6B14B46A1B0097E26B /* gridfs.c in Sources */,
@@ -347,7 +334,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DCCC2E5414B464B60097E26B /* COMongoObjectTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
