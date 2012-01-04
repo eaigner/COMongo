@@ -32,7 +32,7 @@
  @abstract Encodes the keys and values of |doc| in BSON and inserts it into the collection.
  @discussion Has to be called inside -performWithDatabase:collection:block:
  */
-- (void)insert:(NSDictionary *)doc;
+- (BOOL)insert:(NSDictionary *)doc;
 
 @end
 

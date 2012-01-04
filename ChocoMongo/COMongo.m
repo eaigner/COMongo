@@ -16,15 +16,19 @@
 @property (nonatomic, copy, readwrite) NSString *host;
 @property (nonatomic, assign, readwrite) int port;
 @property (nonatomic, assign, readwrite) int operationTimeout;
+@property (nonatomic, copy) NSString *db;
+@property (nonatomic, copy) NSString *collection;
 @end
 
 @implementation COMongo {
 @private
-  mongo conn_;
+  mongo mongo_;
 }
 @synthesize host = host_;
 @synthesize port = port_;
 @synthesize operationTimeout = operationTimeout_;
+@synthesize db = db_;
+@synthesize collection = collection_;
 
 - (id)initWithHost:(NSString *)host port:(int)port {
   return [self initWithHost:host port:port operationTimeout:1000];
@@ -39,8 +43,8 @@
     self.port = port;
     self.operationTimeout = millis;
     
-    mongo_init(&conn_);
-    mongo_set_op_timeout(&conn_, millis);
+    mongo_init(&mongo_);
+    mongo_set_op_timeout(&mongo_, millis);
   }
   return self;
 }
@@ -50,11 +54,11 @@
 }
 
 - (BOOL)connect:(NSError **)error {
-  int status = mongo_connect(&conn_, self.host.UTF8String, self.port);
+  int status = mongo_connect(&mongo_, self.host.UTF8String, self.port);
   
   if(status != MONGO_OK) {
     NSString *errorCause = nil;
-    switch (conn_.err) {
+    switch (mongo_.err) {
       case MONGO_CONN_NO_SOCKET: errorCause = @"could not create socket"; break;
       case MONGO_CONN_FAIL: errorCause = @"connection failed"; break;
       case MONGO_CONN_ADDR_FAIL: errorCause = @"could not get address info"; break;
@@ -78,7 +82,7 @@
 }
 
 - (void)destroy {
-  mongo_destroy(&conn_);
+  mongo_destroy(&mongo_);
 }
 
 static void encodeBson(bson *b, id obj, const char *key, BOOL insertRootId) {
@@ -180,11 +184,33 @@ static void encodeBson(bson *b, id obj, const char *key, BOOL insertRootId) {
 }
 
 - (void)performWithDatabase:(NSString *)db collection:(NSString *)collection block:(dispatch_block_t)block {
-  // TODO: impl
+  @synchronized (self) {
+    self.db = db;
+    self.collection = collection;
+    block();
+    self.db = nil;
+    self.collection = nil;
+  }
 }
 
-- (void)insert:(NSDictionary *)doc {
-  // TODO: impl
+- (BOOL)insert:(NSDictionary *)doc {
+  assert(self.db != nil);
+  assert(self.collection != nil);
+  assert(mongo_.connected);
+  NSString *dbcol = [NSString stringWithFormat:@"%@.%@", self.db, self.collection];
+  
+  bson b[1];
+  bson_init(b);
+  
+  [self encodeObject:doc toBSON:b insertNewRootID:YES];
+  
+  bson_finish(b);
+  
+  if (mongo_insert(&mongo_, dbcol.UTF8String, b) != MONGO_OK) {
+    NSLog(@"mongo error: could not insert document into %@", dbcol);
+    return NO;
+  }
+  return YES;
 }
 
 @end
