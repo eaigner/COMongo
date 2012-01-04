@@ -92,10 +92,10 @@ static void encodeBson(bson *b, id obj, const char *key) {
     
     // Append _id key first, as recommended by mongo docs
     NSString *oidStr = [obj objectForKey:kCOMongoIDKey];
-    if (oidStr == nil) {
+    if (oidStr == nil && key == NULL) {
       bson_append_new_oid(b, kCOMongoIDKey.UTF8String);
     }
-    else {
+    else if (oidStr.length > 0) {
       bson_oid_t oid;
       bson_oid_from_string(&oid, oidStr.UTF8String);
       bson_append_oid(b, kCOMongoIDKey.UTF8String, &oid);
