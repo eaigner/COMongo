@@ -18,12 +18,17 @@
 @property (nonatomic, copy, readonly) NSString *user;
 @property (nonatomic, copy, readonly) NSString *password;
 
+/*!
+ @property healthy
+ @abstract Checks if the connection is healthy
+ */
+@property (nonatomic, readonly, getter = isHealthy) BOOL healthy;
+
 - (id)initWithHost:(NSString *)host port:(int)port database:(NSString *)db;
 - (id)initWithHost:(NSString *)host port:(int)port database:(NSString *)db user:(NSString *)user password:(NSString *)password operationTimeout:(int)millis;
 
 - (BOOL)connect:(NSError **)error;
 - (void)destroy;
-- (BOOL)isHealthy;
 - (const char *)namespaceForCollection:(NSString *)collection;
 
 /*!
