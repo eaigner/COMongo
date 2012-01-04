@@ -71,6 +71,7 @@
 		DCCC2E6814B46A1B0097E26B /* platform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = platform.h; sourceTree = "<group>"; };
 		DCCC2E7914B497340097E26B /* COMongoTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = COMongoTests.h; sourceTree = "<group>"; };
 		DCCC2E7A14B497340097E26B /* COMongoTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = COMongoTests.m; sourceTree = "<group>"; };
+		DCCC2E7C14B49E610097E26B /* COMongoCredentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = COMongoCredentials.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +133,7 @@
 			children = (
 				DCCC2E2A14B4621D0097E26B /* COAppDelegate.h */,
 				DCCC2E2B14B4621D0097E26B /* COAppDelegate.m */,
+				DCCC2E7C14B49E610097E26B /* COMongoCredentials.h */,
 				DCCC2E5514B4698A0097E26B /* COMongo.h */,
 				DCCC2E5614B4698A0097E26B /* COMongo.m */,
 				DCCC2E4A14B462320097E26B /* Classes */,
