@@ -16,8 +16,9 @@
 @property (nonatomic, copy, readwrite) NSString *host;
 @property (nonatomic, assign, readwrite) int port;
 @property (nonatomic, assign, readwrite) int operationTimeout;
-@property (nonatomic, copy) NSString *db;
-@property (nonatomic, copy) NSString *collection;
+@property (nonatomic, copy, readwrite) NSString *database;
+@property (nonatomic, copy, readwrite) NSString *user;
+@property (nonatomic, copy, readwrite) NSString *password;
 @end
 
 @implementation COMongo {
@@ -27,20 +28,25 @@
 @synthesize host = host_;
 @synthesize port = port_;
 @synthesize operationTimeout = operationTimeout_;
-@synthesize db = db_;
-@synthesize collection = collection_;
+@synthesize database = database_;
+@synthesize user = user_;
+@synthesize password = password_;
 
-- (id)initWithHost:(NSString *)host port:(int)port {
-  return [self initWithHost:host port:port operationTimeout:1000];
+- (id)initWithHost:(NSString *)host port:(int)port database:(NSString *)db {
+  return [self initWithHost:host port:port database:db user:nil password:nil operationTimeout:1000];
 }
 
-- (id)initWithHost:(NSString *)host port:(int)port operationTimeout:(int)millis {
+- (id)initWithHost:(NSString *)host port:(int)port database:(NSString *)db user:(NSString *)user password:(NSString *)password operationTimeout:(int)millis {
   assert(host.length > 0);
   assert(port > 0);
+  assert(db.length > 0);
   self = [super init];
   if (self) {
     self.host = host;
     self.port = port;
+    self.database = db;
+    self.user = user;
+    self.password = password;
     self.operationTimeout = millis;
     
     mongo_init(&mongo_);
@@ -53,7 +59,7 @@
   [self destroy];
 }
 
-- (BOOL)connect:(NSError **)error {
+- (BOOL)connect:(NSError **)error {  
   int status = mongo_connect(&mongo_, self.host.UTF8String, self.port);
   
   if(status != MONGO_OK) {
@@ -75,6 +81,11 @@
                                  userInfo:[NSDictionary dictionaryWithObject:errorCause forKey:NSLocalizedDescriptionKey]];
       }
       return NO;
+    }
+  }
+  else if (self.database.length > 0 && self.user.length > 0 && self.password.length > 0) {
+    if (mongo_cmd_authenticate(&mongo_, self.database.UTF8String, self.user.UTF8String, self.password.UTF8String) != MONGO_OK) {
+      NSLog(@"mongo error: could not authenticate '%@' with '%@'", self.user, self.database);
     }
   }
   
@@ -183,21 +194,11 @@ static void encodeBson(bson *b, id obj, const char *key, BOOL insertRootId) {
   }
 }
 
-- (void)performWithDatabase:(NSString *)db collection:(NSString *)collection block:(dispatch_block_t)block {
-  @synchronized (self) {
-    self.db = db;
-    self.collection = collection;
-    block();
-    self.db = nil;
-    self.collection = nil;
-  }
-}
-
-- (BOOL)insert:(NSDictionary *)doc {
-  assert(self.db != nil);
-  assert(self.collection != nil);
+- (BOOL)insert:(NSDictionary *)doc intoCollection:(NSString *)collection {
+  assert(self.database.length > 0);
+  assert(collection.length > 0);
   assert(mongo_.connected);
-  NSString *dbcol = [NSString stringWithFormat:@"%@.%@", self.db, self.collection];
+  NSString *dbcol = [NSString stringWithFormat:@"%@.%@", self.database, collection];
   
   bson b[1];
   bson_init(b);

@@ -14,25 +14,21 @@
 @property (nonatomic, copy, readonly) NSString *host;
 @property (nonatomic, assign, readonly) int port;
 @property (nonatomic, assign, readonly) int operationTimeout;
+@property (nonatomic, copy, readonly) NSString *database;
+@property (nonatomic, copy, readonly) NSString *user;
+@property (nonatomic, copy, readonly) NSString *password;
 
-- (id)initWithHost:(NSString *)host port:(int)port;
-- (id)initWithHost:(NSString *)host port:(int)port operationTimeout:(int)millis;
+- (id)initWithHost:(NSString *)host port:(int)port database:(NSString *)db;
+- (id)initWithHost:(NSString *)host port:(int)port database:(NSString *)db user:(NSString *)user password:(NSString *)password operationTimeout:(int)millis;
 
 - (BOOL)connect:(NSError **)error;
 - (void)destroy;
 
 /*!
- @method performWithDatabase:collection:block:
- @abstract Performs a command with the given database and collection.
- */
-- (void)performWithDatabase:(NSString *)db collection:(NSString *)collection block:(dispatch_block_t)block;
-
-/*!
- @method insert:
+ @method insert:intoCollection:
  @abstract Encodes the keys and values of |doc| in BSON and inserts it into the collection.
- @discussion Has to be called inside -performWithDatabase:collection:block:
  */
-- (BOOL)insert:(NSDictionary *)doc;
+- (BOOL)insert:(NSDictionary *)doc intoCollection:(NSString *)collection;
 
 @end
 
