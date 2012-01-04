@@ -39,19 +39,19 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		DCCC2E1714B4621D0097E26B /* ChocoMongo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChocoMongo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DCCC2E1714B4621D0097E26B /* COMongo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = COMongo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCCC2E1B14B4621D0097E26B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		DCCC2E1D14B4621D0097E26B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		DCCC2E1F14B4621D0097E26B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		DCCC2E2314B4621D0097E26B /* ChocoMongo-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ChocoMongo-Info.plist"; sourceTree = "<group>"; };
+		DCCC2E2314B4621D0097E26B /* COMongo-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "COMongo-Info.plist"; sourceTree = "<group>"; };
 		DCCC2E2514B4621D0097E26B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DCCC2E2714B4621D0097E26B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		DCCC2E2914B4621D0097E26B /* ChocoMongo-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ChocoMongo-Prefix.pch"; sourceTree = "<group>"; };
+		DCCC2E2914B4621D0097E26B /* COMongo-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "COMongo-Prefix.pch"; sourceTree = "<group>"; };
 		DCCC2E2A14B4621D0097E26B /* COAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = COAppDelegate.h; sourceTree = "<group>"; };
 		DCCC2E2B14B4621D0097E26B /* COAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = COAppDelegate.m; sourceTree = "<group>"; };
-		DCCC2E3214B4621D0097E26B /* ChocoMongoTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChocoMongoTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DCCC2E3214B4621D0097E26B /* COMongoTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = COMongoTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCCC2E3314B4621D0097E26B /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		DCCC2E3B14B4621D0097E26B /* ChocoMongoTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ChocoMongoTests-Info.plist"; sourceTree = "<group>"; };
+		DCCC2E3B14B4621D0097E26B /* COMongoTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "COMongoTests-Info.plist"; sourceTree = "<group>"; };
 		DCCC2E3D14B4621D0097E26B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DCCC2E5514B4698A0097E26B /* COMongo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = COMongo.h; sourceTree = "<group>"; };
 		DCCC2E5614B4698A0097E26B /* COMongo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = COMongo.m; sourceTree = "<group>"; };
@@ -101,8 +101,8 @@
 		DCCC2E0C14B4621D0097E26B = {
 			isa = PBXGroup;
 			children = (
-				DCCC2E2114B4621D0097E26B /* ChocoMongo */,
-				DCCC2E3914B4621D0097E26B /* ChocoMongoTests */,
+				DCCC2E2114B4621D0097E26B /* COMongo */,
+				DCCC2E3914B4621D0097E26B /* COMongoTests */,
 				DCCC2E1A14B4621D0097E26B /* Frameworks */,
 				DCCC2E1814B4621D0097E26B /* Products */,
 			);
@@ -111,8 +111,8 @@
 		DCCC2E1814B4621D0097E26B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				DCCC2E1714B4621D0097E26B /* ChocoMongo.app */,
-				DCCC2E3214B4621D0097E26B /* ChocoMongoTests.octest */,
+				DCCC2E1714B4621D0097E26B /* COMongo.app */,
+				DCCC2E3214B4621D0097E26B /* COMongoTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -128,7 +128,7 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		DCCC2E2114B4621D0097E26B /* ChocoMongo */ = {
+		DCCC2E2114B4621D0097E26B /* COMongo */ = {
 			isa = PBXGroup;
 			children = (
 				DCCC2E2A14B4621D0097E26B /* COAppDelegate.h */,
@@ -136,48 +136,40 @@
 				DCCC2E7C14B49E610097E26B /* COMongoCredentials.h */,
 				DCCC2E5514B4698A0097E26B /* COMongo.h */,
 				DCCC2E5614B4698A0097E26B /* COMongo.m */,
-				DCCC2E4A14B462320097E26B /* Classes */,
 				DCCC2E5814B469C30097E26B /* Vendor */,
 				DCCC2E2214B4621D0097E26B /* Supporting Files */,
 			);
-			path = ChocoMongo;
+			path = COMongo;
 			sourceTree = "<group>";
 		};
 		DCCC2E2214B4621D0097E26B /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				DCCC2E2314B4621D0097E26B /* ChocoMongo-Info.plist */,
+				DCCC2E2314B4621D0097E26B /* COMongo-Info.plist */,
 				DCCC2E2414B4621D0097E26B /* InfoPlist.strings */,
 				DCCC2E2714B4621D0097E26B /* main.m */,
-				DCCC2E2914B4621D0097E26B /* ChocoMongo-Prefix.pch */,
+				DCCC2E2914B4621D0097E26B /* COMongo-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		DCCC2E3914B4621D0097E26B /* ChocoMongoTests */ = {
+		DCCC2E3914B4621D0097E26B /* COMongoTests */ = {
 			isa = PBXGroup;
 			children = (
 				DCCC2E3A14B4621D0097E26B /* Supporting Files */,
 				DCCC2E7914B497340097E26B /* COMongoTests.h */,
 				DCCC2E7A14B497340097E26B /* COMongoTests.m */,
 			);
-			path = ChocoMongoTests;
+			path = COMongoTests;
 			sourceTree = "<group>";
 		};
 		DCCC2E3A14B4621D0097E26B /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				DCCC2E3B14B4621D0097E26B /* ChocoMongoTests-Info.plist */,
+				DCCC2E3B14B4621D0097E26B /* COMongoTests-Info.plist */,
 				DCCC2E3C14B4621D0097E26B /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		DCCC2E4A14B462320097E26B /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Classes;
 			sourceTree = "<group>";
 		};
 		DCCC2E5814B469C30097E26B /* Vendor */ = {
@@ -221,9 +213,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		DCCC2E1614B4621D0097E26B /* ChocoMongo */ = {
+		DCCC2E1614B4621D0097E26B /* COMongo */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = DCCC2E4414B4621D0097E26B /* Build configuration list for PBXNativeTarget "ChocoMongo" */;
+			buildConfigurationList = DCCC2E4414B4621D0097E26B /* Build configuration list for PBXNativeTarget "COMongo" */;
 			buildPhases = (
 				DCCC2E1314B4621D0097E26B /* Sources */,
 				DCCC2E1414B4621D0097E26B /* Frameworks */,
@@ -233,14 +225,14 @@
 			);
 			dependencies = (
 			);
-			name = ChocoMongo;
+			name = COMongo;
 			productName = ChocoMongo;
-			productReference = DCCC2E1714B4621D0097E26B /* ChocoMongo.app */;
+			productReference = DCCC2E1714B4621D0097E26B /* COMongo.app */;
 			productType = "com.apple.product-type.application";
 		};
-		DCCC2E3114B4621D0097E26B /* ChocoMongoTests */ = {
+		DCCC2E3114B4621D0097E26B /* COMongoTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = DCCC2E4714B4621D0097E26B /* Build configuration list for PBXNativeTarget "ChocoMongoTests" */;
+			buildConfigurationList = DCCC2E4714B4621D0097E26B /* Build configuration list for PBXNativeTarget "COMongoTests" */;
 			buildPhases = (
 				DCCC2E2D14B4621D0097E26B /* Sources */,
 				DCCC2E2E14B4621D0097E26B /* Frameworks */,
@@ -252,9 +244,9 @@
 			dependencies = (
 				DCCC2E3814B4621D0097E26B /* PBXTargetDependency */,
 			);
-			name = ChocoMongoTests;
+			name = COMongoTests;
 			productName = ChocoMongoTests;
-			productReference = DCCC2E3214B4621D0097E26B /* ChocoMongoTests.octest */;
+			productReference = DCCC2E3214B4621D0097E26B /* COMongoTests.octest */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -266,7 +258,7 @@
 				LastUpgradeCheck = 0420;
 				ORGANIZATIONNAME = chocomoko.com;
 			};
-			buildConfigurationList = DCCC2E1114B4621D0097E26B /* Build configuration list for PBXProject "ChocoMongo" */;
+			buildConfigurationList = DCCC2E1114B4621D0097E26B /* Build configuration list for PBXProject "COMongo" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -278,8 +270,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				DCCC2E1614B4621D0097E26B /* ChocoMongo */,
-				DCCC2E3114B4621D0097E26B /* ChocoMongoTests */,
+				DCCC2E1614B4621D0097E26B /* COMongo */,
+				DCCC2E3114B4621D0097E26B /* COMongoTests */,
 			);
 		};
 /* End PBXProject section */
@@ -350,7 +342,7 @@
 /* Begin PBXTargetDependency section */
 		DCCC2E3814B4621D0097E26B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = DCCC2E1614B4621D0097E26B /* ChocoMongo */;
+			target = DCCC2E1614B4621D0097E26B /* COMongo */;
 			targetProxy = DCCC2E3714B4621D0097E26B /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -424,9 +416,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ChocoMongo/ChocoMongo-Prefix.pch";
-				INFOPLIST_FILE = "ChocoMongo/ChocoMongo-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				GCC_PREFIX_HEADER = "COMongo/COMongo-Prefix.pch";
+				INFOPLIST_FILE = "COMongo/COMongo-Info.plist";
+				PRODUCT_NAME = COMongo;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -435,9 +427,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ChocoMongo/ChocoMongo-Prefix.pch";
-				INFOPLIST_FILE = "ChocoMongo/ChocoMongo-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				GCC_PREFIX_HEADER = "COMongo/COMongo-Prefix.pch";
+				INFOPLIST_FILE = "COMongo/COMongo-Info.plist";
+				PRODUCT_NAME = COMongo;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -445,15 +437,15 @@
 		DCCC2E4814B4621D0097E26B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/ChocoMongo.app/ChocoMongo";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/COMongo.app/COMongo";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ChocoMongo/ChocoMongo-Prefix.pch";
-				INFOPLIST_FILE = "ChocoMongoTests/ChocoMongoTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				GCC_PREFIX_HEADER = "COMongo/COMongo-Prefix.pch";
+				INFOPLIST_FILE = "COMongoTests/COMongoTests-Info.plist";
+				PRODUCT_NAME = COMongoTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
 			};
@@ -462,15 +454,15 @@
 		DCCC2E4914B4621D0097E26B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/ChocoMongo.app/ChocoMongo";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/COMongo.app/COMongo";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ChocoMongo/ChocoMongo-Prefix.pch";
-				INFOPLIST_FILE = "ChocoMongoTests/ChocoMongoTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				GCC_PREFIX_HEADER = "COMongo/COMongo-Prefix.pch";
+				INFOPLIST_FILE = "COMongoTests/COMongoTests-Info.plist";
+				PRODUCT_NAME = COMongoTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
 			};
@@ -479,7 +471,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		DCCC2E1114B4621D0097E26B /* Build configuration list for PBXProject "ChocoMongo" */ = {
+		DCCC2E1114B4621D0097E26B /* Build configuration list for PBXProject "COMongo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DCCC2E4214B4621D0097E26B /* Debug */,
@@ -488,21 +480,23 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		DCCC2E4414B4621D0097E26B /* Build configuration list for PBXNativeTarget "ChocoMongo" */ = {
+		DCCC2E4414B4621D0097E26B /* Build configuration list for PBXNativeTarget "COMongo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DCCC2E4514B4621D0097E26B /* Debug */,
 				DCCC2E4614B4621D0097E26B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
-		DCCC2E4714B4621D0097E26B /* Build configuration list for PBXNativeTarget "ChocoMongoTests" */ = {
+		DCCC2E4714B4621D0097E26B /* Build configuration list for PBXNativeTarget "COMongoTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DCCC2E4814B4621D0097E26B /* Debug */,
 				DCCC2E4914B4621D0097E26B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
