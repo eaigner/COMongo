@@ -211,17 +211,6 @@ static id decodeBson(bson *b, id collection) {
   bson_iterator iter[1];
   bson_iterator_init(iter, b);
   
-  // Set current collection if nil
-  if (collection == nil) {
-    bson_type initType = bson_iterator_type(iter);
-    if (initType == BSON_OBJECT) {
-      collection = [NSMutableDictionary new];
-    }
-    else if (initType == BSON_ARRAY) {
-      collection = [NSMutableArray new];
-    }
-  }
-  
   // Iterate
   while (bson_iterator_more(iter)) {
     bson_type type = bson_iterator_next(iter);
@@ -240,23 +229,20 @@ static id decodeBson(bson *b, id collection) {
       obj = decodeBson(sub, [NSMutableArray new]);
     }
     else {
-      
-#define valStr [NSString stringWithCString:bson_iterator_value(iter) encoding:NSUTF8StringEncoding]
-      
       if (type == BSON_STRING) {
-        obj = valStr;
+        obj = [NSString stringWithCString:bson_iterator_string(iter) encoding:NSUTF8StringEncoding];
       }
       else if (type == BSON_INT) {
-        obj = [NSNumber numberWithInt:[valStr integerValue]];
+        obj = [NSNumber numberWithInt:bson_iterator_int(iter)];
       }
       else if (type == BSON_LONG) {
-        obj = [NSNumber numberWithLong:(long)[valStr longLongValue]];
+        obj = [NSNumber numberWithLong:bson_iterator_long(iter)];
       }
       else if (type == BSON_DOUBLE) {
-        obj = [NSNumber numberWithDouble:[valStr doubleValue]];
+        obj = [NSNumber numberWithDouble:bson_iterator_double(iter)];
       }
       else if (type == BSON_BOOL) {
-        obj = [NSNumber numberWithBool:[valStr isEqualToString:@"true"]];
+        obj = [NSNumber numberWithBool:bson_iterator_bool(iter)];
       }
       else if (type == BSON_BINDATA) {
         const char *buf = bson_iterator_bin_data(iter);
@@ -323,7 +309,7 @@ static id decodeBson(bson *b, id collection) {
                                     0); // cursor flags */
   
   while (cursor != NULL && mongo_cursor_next(cursor) == MONGO_OK) {
-    id obj = decodeBson(&cursor->current, nil);
+    id obj = [self decodeBSONToObject:&cursor->current];
     NSLog(@"obj: %@", obj);
   }
   
@@ -341,7 +327,7 @@ static id decodeBson(bson *b, id collection) {
 }
 
 - (id)decodeBSONToObject:(bson *)bson {
-  return decodeBson(bson, nil);
+  return decodeBson(bson, [NSMutableDictionary new]);
 }
 
 @end
