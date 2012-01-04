@@ -101,10 +101,6 @@
   }
 }
 
-- (const char *)namespaceForCollection:(NSString *)collection {
-  return [[NSString stringWithFormat:@"%@.%@", self.database, collection] UTF8String];
-}
-
 - (BOOL)isHealthy {
   return (mongo_check_connection(mongo_) == MONGO_OK);
 }
@@ -287,6 +283,10 @@ static id decodeBson(bson *b, id collection) {
   return collection;
 }
 
+static const char *namespace(NSString *database, NSString *collection) {
+  return [[NSString stringWithFormat:@"%@.%@", database, collection] UTF8String];
+}
+
 - (BOOL)insert:(NSDictionary *)doc intoCollection:(NSString *)collection {
   assert(self.database.length > 0);
   assert(collection.length > 0);
@@ -299,7 +299,7 @@ static id decodeBson(bson *b, id collection) {
   
   bson_finish(b);
   
-  const char *ns = [self namespaceForCollection:collection];
+  const char *ns = namespace(self.database, collection);
   int status = mongo_insert(mongo_, ns, b);
   
   if (status != MONGO_OK) {
@@ -329,7 +329,7 @@ static id decodeBson(bson *b, id collection) {
   
   NSMutableArray *results = [NSMutableArray new];
   
-  const char *ns = [self namespaceForCollection:collection];
+  const char *ns = namespace(self.database, collection);
   mongo_cursor *cursor = mongo_find(mongo_, ns, b, NULL, limit, skip, 0);
   
   while (cursor != NULL && mongo_cursor_next(cursor) == MONGO_OK) {
