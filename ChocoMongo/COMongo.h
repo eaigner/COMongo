@@ -19,4 +19,18 @@
 - (BOOL)connect:(NSError **)error;
 - (void)destroy;
 
+/*!
+ @method performWithDatabase:collection:block:
+ @abstract Performs a command with the given database and collection.
+ */
+- (void)performWithDatabase:(NSString *)db collection:(NSString *)collection block:(dispatch_block_t)block;
+
+/*!
+ @method insert:
+ @abstract Encodes the keys and values of |doc| in BSON and inserts it into the collection.
+ @discussion Has to be called inside -performWithDatabase:collection:block:
+ */
+- (void)insert:(NSDictionary *)doc;
+
+
 @end

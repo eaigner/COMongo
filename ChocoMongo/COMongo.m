@@ -11,6 +11,7 @@
 #import "mongo.h"
 
 #define kCOMongoErrorDomain @"com.chocomoko.ChocoMongo"
+#define kCOMongoIDKey @"_id"
 
 @interface COMongo ()
 @property (nonatomic, copy, readwrite) NSString *host;
@@ -79,6 +80,64 @@
 
 - (void)destroy {
   mongo_destroy(&conn_);
+}
+
+static void bsonForDictionary(bson *bson, NSDictionary *dict) {
+  bson_init(bson);
+  
+  // Append _id key first
+  NSString *oid = [dict objectForKey:kCOMongoIDKey];
+  if (oid == nil) {
+    bson_append_new_oid(bson, kCOMongoIDKey.UTF8String);
+  }
+  else {
+    bson_oid_t boid;
+    bson_oid_from_string(&boid, oid.UTF8String);
+    bson_append_oid(bson, kCOMongoIDKey.UTF8String, &boid);
+  }
+  
+  // Append other keys and values
+  for (NSString *key in dict) {
+    if ([key isEqualToString:kCOMongoIDKey]) {
+      continue;
+    }
+    const char *ckey = key.UTF8String;
+    id obj = [dict objectForKey:key];
+    
+    // Strings
+    if ([obj isKindOfClass:[NSString class]]) {
+      const char *cvalue = [obj UTF8String];
+      bson_append_string(bson, ckey, cvalue);
+    }
+    
+    // Numbers
+    else if ([obj isKindOfClass:[NSNumber class]]) {
+      NSNumber *number = (NSNumber *)obj;
+      const char *numType = number.objCType;
+      
+#define eqType(x) (strncmp(numType, x, strlen(numType)) == 0)
+      
+      if (eqType(@encode(int))) {
+        bson_append_int(bson, ckey, number.intValue);
+      }
+      else if (eqType(@encode(long))) {
+        bson_append_long(bson, ckey, number.longValue);
+      }
+      else if (eqType(@encode(double))) {
+        bson_append_double(bson, ckey, number.doubleValue);
+      }
+    }
+  }
+  
+  bson_finish(bson);
+}
+
+- (void)performWithDatabase:(NSString *)db collection:(NSString *)collection block:(dispatch_block_t)block {
+  // TODO: impl
+}
+
+- (void)insert:(NSDictionary *)doc {
+  // TODO: impl
 }
 
 @end
