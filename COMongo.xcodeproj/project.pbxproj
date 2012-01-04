@@ -39,6 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DC1A1C5014B4FC2800C9B034 /* COMongoCredentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = COMongoCredentials.h; sourceTree = "<group>"; };
 		DCCC2E1714B4621D0097E26B /* COMongo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = COMongo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCCC2E1B14B4621D0097E26B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		DCCC2E1D14B4621D0097E26B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -71,7 +72,6 @@
 		DCCC2E6814B46A1B0097E26B /* platform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = platform.h; sourceTree = "<group>"; };
 		DCCC2E7914B497340097E26B /* COMongoTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = COMongoTests.h; sourceTree = "<group>"; };
 		DCCC2E7A14B497340097E26B /* COMongoTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = COMongoTests.m; sourceTree = "<group>"; };
-		DCCC2E7C14B49E610097E26B /* COMongoCredentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = COMongoCredentials.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,7 +133,7 @@
 			children = (
 				DCCC2E2A14B4621D0097E26B /* COAppDelegate.h */,
 				DCCC2E2B14B4621D0097E26B /* COAppDelegate.m */,
-				DCCC2E7C14B49E610097E26B /* COMongoCredentials.h */,
+				DC1A1C5014B4FC2800C9B034 /* COMongoCredentials.h */,
 				DCCC2E5514B4698A0097E26B /* COMongo.h */,
 				DCCC2E5614B4698A0097E26B /* COMongo.m */,
 				DCCC2E5814B469C30097E26B /* Vendor */,
