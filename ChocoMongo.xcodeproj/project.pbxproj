@@ -18,6 +18,7 @@
 		DCCC2E3614B4621D0097E26B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCCC2E1D14B4621D0097E26B /* Foundation.framework */; };
 		DCCC2E3E14B4621D0097E26B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCCC2E3C14B4621D0097E26B /* InfoPlist.strings */; };
 		DCCC2E4114B4621D0097E26B /* ChocoMongoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DCCC2E4014B4621D0097E26B /* ChocoMongoTests.m */; };
+		DCCC2E5114B462840097E26B /* COMongoObject.m in Sources */ = {isa = PBXBuildFile; fileRef = DCCC2E5014B462840097E26B /* COMongoObject.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,18 +36,20 @@
 		DCCC2E1B14B4621D0097E26B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		DCCC2E1D14B4621D0097E26B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		DCCC2E1F14B4621D0097E26B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		DCCC2E2314B4621D0097E26B /* ChocoMongo-Info.plist */ = {isa = PBXFileReference; path = "ChocoMongo-Info.plist"; sourceTree = "<group>"; };
+		DCCC2E2314B4621D0097E26B /* ChocoMongo-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ChocoMongo-Info.plist"; sourceTree = "<group>"; };
 		DCCC2E2514B4621D0097E26B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DCCC2E2714B4621D0097E26B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		DCCC2E2914B4621D0097E26B /* ChocoMongo-Prefix.pch */ = {isa = PBXFileReference; path = "ChocoMongo-Prefix.pch"; sourceTree = "<group>"; };
-		DCCC2E2A14B4621D0097E26B /* COAppDelegate.h */ = {isa = PBXFileReference; path = COAppDelegate.h; sourceTree = "<group>"; };
+		DCCC2E2914B4621D0097E26B /* ChocoMongo-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ChocoMongo-Prefix.pch"; sourceTree = "<group>"; };
+		DCCC2E2A14B4621D0097E26B /* COAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = COAppDelegate.h; sourceTree = "<group>"; };
 		DCCC2E2B14B4621D0097E26B /* COAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = COAppDelegate.m; sourceTree = "<group>"; };
 		DCCC2E3214B4621D0097E26B /* ChocoMongoTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChocoMongoTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCCC2E3314B4621D0097E26B /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		DCCC2E3B14B4621D0097E26B /* ChocoMongoTests-Info.plist */ = {isa = PBXFileReference; path = "ChocoMongoTests-Info.plist"; sourceTree = "<group>"; };
+		DCCC2E3B14B4621D0097E26B /* ChocoMongoTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ChocoMongoTests-Info.plist"; sourceTree = "<group>"; };
 		DCCC2E3D14B4621D0097E26B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		DCCC2E3F14B4621D0097E26B /* ChocoMongoTests.h */ = {isa = PBXFileReference; path = ChocoMongoTests.h; sourceTree = "<group>"; };
+		DCCC2E3F14B4621D0097E26B /* ChocoMongoTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChocoMongoTests.h; sourceTree = "<group>"; };
 		DCCC2E4014B4621D0097E26B /* ChocoMongoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChocoMongoTests.m; sourceTree = "<group>"; };
+		DCCC2E4F14B462840097E26B /* COMongoObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = COMongoObject.h; sourceTree = "<group>"; };
+		DCCC2E5014B462840097E26B /* COMongoObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = COMongoObject.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +111,7 @@
 			children = (
 				DCCC2E2A14B4621D0097E26B /* COAppDelegate.h */,
 				DCCC2E2B14B4621D0097E26B /* COAppDelegate.m */,
+				DCCC2E4A14B462320097E26B /* Classes */,
 				DCCC2E2214B4621D0097E26B /* Supporting Files */,
 			);
 			path = ChocoMongo;
@@ -141,6 +145,15 @@
 				DCCC2E3C14B4621D0097E26B /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		DCCC2E4A14B462320097E26B /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				DCCC2E4F14B462840097E26B /* COMongoObject.h */,
+				DCCC2E5014B462840097E26B /* COMongoObject.m */,
+			);
+			name = Classes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -251,6 +264,7 @@
 			files = (
 				DCCC2E2814B4621D0097E26B /* main.m in Sources */,
 				DCCC2E2C14B4621D0097E26B /* COAppDelegate.m in Sources */,
+				DCCC2E5114B462840097E26B /* COMongoObject.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
