@@ -24,6 +24,18 @@
  */
 @property (nonatomic, readonly, getter = isHealthy) BOOL healthy;
 
+/*!
+ @property lastErrorString
+ @abstract Returns the last encountered error message
+ */
+@property (nonatomic, readonly) NSString *lastErrorString;
+
+/*!
+ @property lastErrorCode
+ @abstract Returns the last encountered error code
+ */
+@property (nonatomic, readonly) NSInteger lastErrorCode;
+
 - (id)initWithHost:(NSString *)host port:(int)port database:(NSString *)db;
 - (id)initWithHost:(NSString *)host port:(int)port database:(NSString *)db user:(NSString *)user password:(NSString *)password operationTimeout:(int)millis;
 

@@ -105,6 +105,18 @@
   return (mongo_check_connection(mongo_) == MONGO_OK);
 }
 
+- (NSString *)lastErrorString {
+  char *str = mongo_->lasterrstr;
+  if (str != NULL) {
+    return [NSString stringWithCString:str encoding:NSUTF8StringEncoding];
+  }
+  return nil;
+}
+
+- (NSInteger)lastErrorCode {
+  return (NSInteger)mongo_->lasterrcode;
+}
+
 - (const char *)namespaceForCollection:(NSString *)collection {
   return [[NSString stringWithFormat:@"%@.%@", self.database, collection] UTF8String];
 }
