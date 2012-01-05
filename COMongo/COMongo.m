@@ -117,7 +117,7 @@
   return (NSInteger)mongo_->lasterrcode;
 }
 
-static void encodeBson(bson *b, id obj, const char *key, BOOL insertRootId) {
+static void encodeBson(bson *b, id obj, const char *key) {
   if ([obj isKindOfClass:[NSDictionary class]]) {
     // If this is not a root object and thus a recursive call, start a new object with the key
     if (key != NULL) {
@@ -128,10 +128,7 @@ static void encodeBson(bson *b, id obj, const char *key, BOOL insertRootId) {
     
     // Append _id key first, as recommended by mongo docs
     NSString *oidStr = [obj objectForKey:kCOMongoIDKey];
-    if (oidStr == nil && key == NULL && insertRootId) {
-      bson_append_new_oid(b, kCOMongoIDKey.UTF8String);
-    }
-    else if (oidStr.length > 0) {
+    if (oidStr.length > 0) {
       bson_oid_t oid;
       bson_oid_from_string(&oid, oidStr.UTF8String);
       bson_append_oid(b, kCOMongoIDKey.UTF8String, &oid);
@@ -142,7 +139,7 @@ static void encodeBson(bson *b, id obj, const char *key, BOOL insertRootId) {
       if ([key isEqualToString:kCOMongoIDKey]) {
         continue;
       }
-      encodeBson(b, [obj objectForKey:key], key.UTF8String, insertRootId);
+      encodeBson(b, [obj objectForKey:key], key.UTF8String);
     }
     
     if (key != NULL) {
@@ -158,7 +155,7 @@ static void encodeBson(bson *b, id obj, const char *key, BOOL insertRootId) {
       }
     }
     for (int c=0; c<[obj count]; c++) {
-      encodeBson(b, [obj objectAtIndex:c], [[NSString stringWithFormat:@"%d", c] UTF8String], insertRootId);
+      encodeBson(b, [obj objectAtIndex:c], [[NSString stringWithFormat:@"%d", c] UTF8String]);
     }
     if (key != NULL) {
       if (bson_append_finish_array(b) != BSON_OK) {
@@ -339,7 +336,7 @@ static const char *namespace(NSString *database, NSString *collection) {
   bson b[1];
   bson_init(b);
   
-  [self encodeObject:doc toBSON:b insertNewRootID:YES];
+  [self encodeObject:doc toBSON:b];
   
   bson_finish(b);
   
@@ -364,7 +361,7 @@ static const char *namespace(NSString *database, NSString *collection) {
   bson b[1];
   bson_init(b);
   if (query != nil) {
-    encodeBson(b, query, NULL, NO);
+    encodeBson(b, query, NULL);
   }
   else {
     bson_empty(b);
@@ -391,8 +388,8 @@ static const char *namespace(NSString *database, NSString *collection) {
 
 @implementation COMongo (BSON)
 
-- (void)encodeObject:(id)obj toBSON:(bson *)bson insertNewRootID:(BOOL)flag {
-  encodeBson(bson, obj, NULL, flag);
+- (void)encodeObject:(id)obj toBSON:(bson *)bson {
+  encodeBson(bson, obj, NULL);
 }
 
 - (id)decodeBSONToObject:(bson *)bson {

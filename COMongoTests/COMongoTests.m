@@ -31,7 +31,7 @@
                         [NSDictionary dictionaryWithObject:@"dictObj1" forKey:@"dictKey1"], @"dictKey0",
                         nil];
   
-  [mongo encodeObject:dict toBSON:b insertNewRootID:NO];
+  [mongo encodeObject:dict toBSON:b];
   
   bson_finish(b);
   bson_print(b);
@@ -75,6 +75,8 @@
     STAssertEquals(docs.count, (NSUInteger)1, nil);
 
     NSMutableDictionary *result = [docs objectAtIndex:0];
+    [result removeObjectForKey:@"_id"];
+    
     STAssertNotNil(result, nil);
     STAssertEqualObjects(result, doc, nil);
     
