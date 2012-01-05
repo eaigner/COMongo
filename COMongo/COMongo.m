@@ -255,9 +255,10 @@ static id decodeBson(bson *b, id collection) {
   // Iterate
   while (bson_iterator_more(iter)) {
     id obj = nil;
-    const char *key = bson_iterator_key(iter);
     
     bson_type type = bson_iterator_next(iter);
+    const char *key = bson_iterator_key(iter);
+    
     switch (type) {
       case BSON_EOO:
         break;
