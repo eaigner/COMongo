@@ -124,13 +124,17 @@
   return (NSInteger)mongo_->lasterrcode;
 }
 
+static void report(int status, const char *key, char *msg) {
+  if (status != BSON_OK) {
+    NSLog(@"bson error: %@ (key '%@')", msg, key);
+  }
+}
+
 static void encodeBson(bson *b, id obj, const char *key) {
   if ([obj isKindOfClass:[NSDictionary class]]) {
     // If this is not a root object and thus a recursive call, start a new object with the key
     if (key != NULL) {
-      if (bson_append_start_object(b, key) != BSON_OK) {
-        NSLog(@"bson error: could not start object for key '%s'", key);
-      }
+      report(bson_append_start_object(b, key), key, "could not start object");
     }
     
     // Append _id key first, as recommended by mongo docs
@@ -138,7 +142,7 @@ static void encodeBson(bson *b, id obj, const char *key) {
     if (oidStr.length > 0) {
       bson_oid_t oid;
       bson_oid_from_string(&oid, oidStr.UTF8String);
-      bson_append_oid(b, kCOMongoIDKey.UTF8String, &oid);
+      report(bson_append_oid(b, kCOMongoIDKey.UTF8String, &oid), key, "could not append oid");
     }
     
     // Append other keys and values
@@ -150,41 +154,29 @@ static void encodeBson(bson *b, id obj, const char *key) {
     }
     
     if (key != NULL) {
-      if (bson_append_finish_object(b) != BSON_OK) {
-        NSLog(@"bson error: could not finish object for key '%s'", key);
-      }
+      report(bson_append_finish_object(b), key, "could not finish object");
     }
   }
   else if ([obj isKindOfClass:[NSArray class]]) {
     if (key != NULL) {
-      if (bson_append_start_array(b, key) != BSON_OK) {
-        NSLog(@"bson error: could not start array for key '%s'", key);
-      }
+      report(bson_append_start_array(b, key), key, "could not start array");
     }
     for (int c=0; c<[obj count]; c++) {
       encodeBson(b, [obj objectAtIndex:c], [[NSString stringWithFormat:@"%d", c] UTF8String]);
     }
     if (key != NULL) {
-      if (bson_append_finish_array(b) != BSON_OK) {
-        NSLog(@"bson error: could not finish array for key '%s'", key);
-      }
+      report(bson_append_finish_array(b), key, "could not finish array");
     }
   }
   else if ([obj isKindOfClass:[COMongoOID class]]) {
-    if (bson_append_oid(b, key, [obj OID]) != BSON_OK) {
-      NSLog(@"bson error: could not append oid for key '%s'", key);
-    }
+    report(bson_append_oid(b, key, [obj OID]), key, "could not append oid");
   }
   else if ([obj isKindOfClass:[COMongoRegex class]]) {
     COMongoRegex *rx = (COMongoRegex *)obj;
-    if (bson_append_regex(b, key, [rx expression], [rx options]) != BSON_OK) {
-      NSLog(@"bson error: could not append regex for key '%s'", key);
-    }
+    report(bson_append_regex(b, key, [rx expression], [rx options]), key, "could not append regex");
   }
   else if ([obj isKindOfClass:[NSString class]]) {
-    if (bson_append_string(b, key, [obj UTF8String]) != BSON_OK) {
-      NSLog(@"bson error: could not append string for key '%s'", key);
-    }
+    report(bson_append_string(b, key, [obj UTF8String]), key, "could not append string");
   }
   else if ([obj isKindOfClass:[NSNumber class]]) {
     NSNumber *number = (NSNumber *)obj;
@@ -220,9 +212,8 @@ static void encodeBson(bson *b, id obj, const char *key) {
         status = bson_append_int(b, key, [number intValue]);
         break;
     }
-    if (status != BSON_OK) {
-      NSLog(@"bson error: could not append number for key '%s'", key);
-    }
+    
+    report(status, key, "could not append number");
   }
   else if ([obj isKindOfClass:[NSData class]]) {
     NSData *data = (NSData *)obj;
@@ -230,14 +221,10 @@ static void encodeBson(bson *b, id obj, const char *key) {
     const char buf[bufLen];
     [data getBytes:(void *)buf length:bufLen];
     
-    if (bson_append_binary(b, key, BSON_BIN_BINARY, buf, bufLen) != BSON_OK) {
-      NSLog(@"bson error: could not append binary for key '%s'", key);
-    }
+    report(bson_append_binary(b, key, BSON_BIN_BINARY, buf, bufLen), key, "could not append binary");
   }
   else if ([obj isKindOfClass:[NSNull class]]) {
-    if (bson_append_null(b, key) != BSON_OK) {
-      NSLog(@"bson error: could not append null for key '%s'", key);
-    }
+    report(bson_append_null(b, key), key, "could not append null");
   }
 }
 
