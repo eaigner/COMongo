@@ -8,6 +8,8 @@
 
 #import "COMongo.h"
 
+#import <netdb.h>
+#import <arpa/inet.h>
 #import <objc/runtime.h>
 
 #define kCOMongoErrorDomain @"com.chocomoko.ChocoMongo"
@@ -56,7 +58,14 @@
 }
 
 - (BOOL)connect:(NSError **)error {
-  int status = mongo_connect(mongo_, self.host.UTF8String, self.port);
+  // Get the IP addresses for the host
+  struct hostent *hostptr = gethostbyname(self.host.UTF8String);
+  struct in_addr addr;
+  memcpy(&addr, hostptr->h_addr, sizeof(struct in_addr));
+  char *host = inet_ntoa(addr);
+  
+  // Connect
+  int status = mongo_connect(mongo_, host, self.port);
   
   if(status != MONGO_OK) {
     NSString *errorCause = nil;
