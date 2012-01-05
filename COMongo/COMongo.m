@@ -173,29 +173,40 @@ static void encodeBson(bson *b, id obj, const char *key, BOOL insertRootId) {
   }
   /* numbers */ else if ([obj isKindOfClass:[NSNumber class]]) {
     NSNumber *number = (NSNumber *)obj;
-    const char *numType = number.objCType;
+    const char *objCType = number.objCType;
     
-#define eqType(x) (strncmp(numType, x, strlen(x)) == 0)
+    // DEVNOTE: Obj-C type encoding table
+    // http://developer.apple.com/library/mac/#documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Articles/ocrtTypeEncodings.html
     
-    if (eqType(@encode(int))) {
-      if (bson_append_int(b, key, number.intValue) != BSON_OK) {
-        NSLog(@"bson error: could not append int for key '%s'", key);
-      }
+    int status = BSON_OK;
+    switch (*objCType) {
+      case 'd': // double
+      case 'f': // float
+        status = bson_append_double(b, key, [number doubleValue]);
+        break;
+      case 'l': // long
+      case 'L': // unsigned long
+        status = bson_append_long(b, key, [number longValue]);
+        break;
+      case 'q': // long long
+      case 'Q': // unsigned long long
+        status = bson_append_long(b, key, [number longLongValue]);
+        break;
+      case 'B': // bool
+        status = bson_append_bool(b, key, [number boolValue]);
+        break;
+      case 'c': // char
+      case 'C': // unsigned char
+      case 's': // short
+      case 'S': // unsigned short
+      case 'i': // int
+      case 'I': // unsigned int
+      default:
+        status = bson_append_int(b, key, [number intValue]);
+        break;
     }
-    else if (eqType(@encode(long))) {
-      if (bson_append_long(b, key, number.longValue) != BSON_OK) {
-        NSLog(@"bson error: could not append long for key '%s'", key);
-      }
-    }
-    else if (eqType(@encode(double))) {
-      if (bson_append_double(b, key, number.doubleValue) != BSON_OK) {
-        NSLog(@"bson error: could not append double for key '%s'", key);
-      }
-    }
-    else if (eqType(@encode(BOOL))) {
-      if (bson_append_bool(b, key, (bson_bool_t)number.boolValue) != BSON_OK) {
-        NSLog(@"bson error: could not append bool for key '%s'", key);
-      }
+    if (status != BSON_OK) {
+      NSLog(@"bson error: could not append number for key '%s'", key);
     }
   }
   /* data */ else if ([obj isKindOfClass:[NSData class]]) {
