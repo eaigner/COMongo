@@ -405,7 +405,13 @@ static const char *namespace(NSString *database, NSString *collection) {
 
 static char kNSStringIsOIDKey;
 
-+ (NSString *)OIDStringWithOID:(const bson_oid_t *)oid {
++ (NSString *)newOID {
+  bson_oid_t oid[1];
+  bson_oid_gen(oid);
+  return [self OIDStringWithOID:oid];
+}
+
++ (NSString *)OIDStringWithOID:(bson_oid_t *)oid {
   char buf[24];
   bson_oid_to_string(oid, buf);
   NSString *str = [[NSString alloc] initWithBytes:buf length:24 encoding:NSUTF8StringEncoding];
