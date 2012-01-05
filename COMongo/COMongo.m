@@ -233,45 +233,68 @@ static id decodeBson(bson *b, id collection) {
   
   // Iterate
   while (bson_iterator_more(iter)) {
-    bson_type type = bson_iterator_next(iter);
+    id obj = nil;
     const char *key = bson_iterator_key(iter);
     
-    id obj = nil;
-    
-    if (type == BSON_OBJECT) {
-      bson sub[1];
-      bson_iterator_subobject(iter, sub);
-      obj = decodeBson(sub, [NSMutableDictionary new]);
-    }
-    else if (type == BSON_ARRAY) {
-      bson sub[1];
-      bson_iterator_subobject(iter, sub);
-      obj = decodeBson(sub, [NSMutableArray new]);
-    }
-    else {
-      if (type == BSON_STRING) {
-        obj = [NSString stringWithCString:bson_iterator_string(iter) encoding:NSUTF8StringEncoding];
-      }
-      else if (type == BSON_INT) {
-        obj = [NSNumber numberWithInt:bson_iterator_int(iter)];
-      }
-      else if (type == BSON_LONG) {
-        obj = [NSNumber numberWithLong:bson_iterator_long(iter)];
-      }
-      else if (type == BSON_DOUBLE) {
+    bson_type type = bson_iterator_next(iter);
+    switch (type) {
+      case BSON_EOO:
+        break;
+      case BSON_DOUBLE:
         obj = [NSNumber numberWithDouble:bson_iterator_double(iter)];
+        break;
+      case BSON_STRING:
+        obj = [NSString stringWithCString:bson_iterator_string(iter) encoding:NSUTF8StringEncoding];
+        break;
+      case BSON_OBJECT: {
+        bson sub[1];
+        bson_iterator_subobject(iter, sub);
+        obj = decodeBson(sub, [NSMutableDictionary new]);
       }
-      else if (type == BSON_BOOL) {
-        obj = [NSNumber numberWithBool:bson_iterator_bool(iter)];
+        break;
+      case BSON_ARRAY: {
+        bson sub[1];
+        bson_iterator_subobject(iter, sub);
+        obj = decodeBson(sub, [NSMutableArray new]);
       }
-      else if (type == BSON_BINDATA) {
+        break;
+      case BSON_BINDATA: {
         const char *buf = bson_iterator_bin_data(iter);
         int bufLen = bson_iterator_bin_len(iter);
         obj = [NSData dataWithBytes:buf length:bufLen];
       }
-      else if (type == BSON_NULL) {
+        break;
+      case BSON_UNDEFINED:
+        break;
+      case BSON_OID:
+        
+        break;
+      case BSON_BOOL:
+        obj = [NSNumber numberWithBool:bson_iterator_bool(iter)];
+        break;
+      case BSON_DATE:
+        break;
+      case BSON_NULL:
         obj = [NSNull null];
-      }
+        break;
+      case BSON_REGEX:
+        break;
+      case BSON_DBREF: // deprecated
+        break;
+      case BSON_CODE:
+        break;
+      case BSON_SYMBOL:
+        break;
+      case BSON_CODEWSCOPE:
+        break;
+      case BSON_INT:
+        obj = [NSNumber numberWithInt:bson_iterator_int(iter)];
+        break;
+      case BSON_TIMESTAMP:
+        break;
+      case BSON_LONG:
+        obj = [NSNumber numberWithLong:bson_iterator_long(iter)];
+        break;
     }
     
     if (obj != nil) {
