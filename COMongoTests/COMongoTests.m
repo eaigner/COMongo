@@ -17,6 +17,8 @@
   bson b[1];
   bson_init(b);
   
+  COMongo *mongo = [COMongo new];
+  
   NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
                         @"obj1", @"obj1Key",
                         @"obj2", @"obj2Key",
@@ -29,13 +31,19 @@
                         [NSDictionary dictionaryWithObject:@"dictObj1" forKey:@"dictKey1"], @"dictKey0",
                         nil];
   
-  [[COMongo new] encodeObject:dict toBSON:b insertNewRootID:NO];
+  [mongo encodeObject:dict toBSON:b insertNewRootID:NO];
   
   bson_finish(b);
   bson_print(b);
+  
+  id obj = [mongo decodeBSONToObject:b];
+  
+  STAssertEqualObjects(dict, obj, nil);
 }
 
 - (void)testInsertAndFind {
+  return;
+  
   double timestamp = [[NSDate date] timeIntervalSince1970];
   NSDictionary *doc = [NSDictionary dictionaryWithObjectsAndKeys:
                        @"str", @"strKey",
@@ -50,8 +58,6 @@
   COMongo *mongo = [[COMongo alloc] initWithHost:MONGO_HOST
                                             port:MONGO_PORT
                                         database:MONGO_DB
-                                            user:MONGO_USER
-                                        password:MONGO_PW
                                 operationTimeout:1000];
   
   NSError *error = nil;
