@@ -42,8 +42,6 @@
 }
 
 - (void)testInsertAndFind {
-  return;
-  
   double timestamp = [[NSDate date] timeIntervalSince1970];
   NSDictionary *doc = [NSDictionary dictionaryWithObjectsAndKeys:
                        @"str", @"strKey",
