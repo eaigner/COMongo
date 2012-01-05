@@ -60,9 +60,7 @@
 - (BOOL)connect:(NSError **)error {
   // Get the IP addresses for the host
   struct hostent *hostptr = gethostbyname(self.host.UTF8String);
-  struct in_addr addr;
-  memcpy(&addr, hostptr->h_addr, sizeof(struct in_addr));
-  char *host = inet_ntoa(addr);
+  char *host = inet_ntoa(*((struct in_addr *)hostptr->h_addr));
   
   // Connect
   int status = mongo_connect(mongo_, host, self.port);
