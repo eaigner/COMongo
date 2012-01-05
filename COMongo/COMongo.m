@@ -202,9 +202,9 @@ static void encodeBson(bson *b, id obj, const char *key, BOOL insertRootId) {
         status = bson_append_long(b, key, [number longLongValue]);
         break;
       case 'B': // bool
+      case 'c': // char (BOOL is encoded as 'c')
         status = bson_append_bool(b, key, [number boolValue]);
         break;
-      case 'c': // char
       case 'C': // unsigned char
       case 's': // short
       case 'S': // unsigned short
