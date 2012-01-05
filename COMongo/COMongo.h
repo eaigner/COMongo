@@ -62,14 +62,13 @@
 
 @end
 
-@interface NSString (MongoOID)
+@interface COMongoOID : NSObject
 
-+ (NSString *)newMongoOID;
-+ (NSString *)mongoOIDWithOID:(bson_oid_t *)oid;
-+ (NSString *)mongoOIDWithString:(NSString *)string;
+- (id)initWithOID:(bson_oid_t *)oid;
+- (id)initWithString:(NSString *)string;
 
-- (BOOL)isMongoOID;
-- (void)getMongoOID:(bson_oid_t *)oid;
+- (bson_oid_t *)OID;
+- (NSString *)string;
 
 @end
 
@@ -78,11 +77,11 @@ enum {
 };
 typedef NSInteger COMongoRegexOption;
 
-@interface NSString (MongoRegex)
+@interface COMongoRegex : NSObject
 
-+ (NSString *)mongoRegexStringWithString:(NSString *)string options:(COMongoRegexOption)opt;
+- (id)initWithString:(NSString *)string options:(COMongoRegexOption)mask;
 
-- (BOOL)isMongoRegex;
-- (const char *)mongoRegexOptions;
+- (const char *)expression;
+- (const char *)options;
 
 @end
