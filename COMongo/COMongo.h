@@ -68,5 +68,6 @@
 + (NSString *)OIDStringWithString:(NSString *)string;
 
 - (BOOL)isOID;
+- (void)getOID:(bson_oid_t *)oid;
 
 @end

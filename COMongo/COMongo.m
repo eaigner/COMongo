@@ -118,7 +118,7 @@
 }
 
 static void encodeBson(bson *b, id obj, const char *key, BOOL insertRootId) {
-  /* dicts */ if ([obj isKindOfClass:[NSDictionary class]]) {
+  if ([obj isKindOfClass:[NSDictionary class]]) {
     // If this is not a root object and thus a recursive call, start a new object with the key
     if (key != NULL) {
       if (bson_append_start_object(b, key) != BSON_OK) {
@@ -151,7 +151,7 @@ static void encodeBson(bson *b, id obj, const char *key, BOOL insertRootId) {
       }
     }
   }
-  /* arrays */ else if ([obj isKindOfClass:[NSArray class]]) {
+  else if ([obj isKindOfClass:[NSArray class]]) {
     if (key != NULL) {
       if (bson_append_start_array(b, key) != BSON_OK) {
         NSLog(@"bson error: could not start array for key '%s'", key);
@@ -166,12 +166,21 @@ static void encodeBson(bson *b, id obj, const char *key, BOOL insertRootId) {
       }
     }
   }
-  /* strings */ else if ([obj isKindOfClass:[NSString class]]) {
-    if (bson_append_string(b, key, [obj UTF8String]) != BSON_OK) {
-      NSLog(@"bson error: could not append string for key '%s'", key);
+  else if ([obj isKindOfClass:[NSString class]]) {
+    if ([obj isOID]) {
+      bson_oid_t oid[1];
+      [obj getOID:oid];
+      if (bson_append_oid(b, key, oid) != BSON_OK) {
+        NSLog(@"bson error: could not append oid for key '%s'", key);
+      }
+    }
+    else {
+      if (bson_append_string(b, key, [obj UTF8String]) != BSON_OK) {
+        NSLog(@"bson error: could not append string for key '%s'", key);
+      }
     }
   }
-  /* numbers */ else if ([obj isKindOfClass:[NSNumber class]]) {
+  else if ([obj isKindOfClass:[NSNumber class]]) {
     NSNumber *number = (NSNumber *)obj;
     const char *objCType = number.objCType;
     
@@ -209,7 +218,7 @@ static void encodeBson(bson *b, id obj, const char *key, BOOL insertRootId) {
       NSLog(@"bson error: could not append number for key '%s'", key);
     }
   }
-  /* data */ else if ([obj isKindOfClass:[NSData class]]) {
+  else if ([obj isKindOfClass:[NSData class]]) {
     NSData *data = (NSData *)obj;
     int bufLen = (int)data.length;
     const char buf[bufLen];
@@ -219,7 +228,7 @@ static void encodeBson(bson *b, id obj, const char *key, BOOL insertRootId) {
       NSLog(@"bson error: could not append binary for key '%s'", key);
     }
   }
-  /* null */ else if ([obj isKindOfClass:[NSNull class]]) {
+  else if ([obj isKindOfClass:[NSNull class]]) {
     if (bson_append_null(b, key) != BSON_OK) {
       NSLog(@"bson error: could not append null for key '%s'", key);
     }
@@ -410,6 +419,12 @@ static char kNSStringIsOIDKey;
 
 - (BOOL)isOID {
   return [(NSNumber *)objc_getAssociatedObject(self, &kNSStringIsOIDKey) boolValue];
+}
+
+- (void)getOID:(bson_oid_t *)oid {
+  if ([self isOID]) {
+    bson_oid_from_string(oid, self.UTF8String);
+  }
 }
 
 @end
