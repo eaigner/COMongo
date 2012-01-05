@@ -175,6 +175,12 @@ static void encodeBson(bson *b, id obj, const char *key) {
       NSLog(@"bson error: could not append oid for key '%s'", key);
     }
   }
+  else if ([obj isKindOfClass:[COMongoRegex class]]) {
+    COMongoRegex *rx = (COMongoRegex *)obj;
+    if (bson_append_regex(b, key, [rx expression], [rx options]) != BSON_OK) {
+      NSLog(@"bson error: could not append regex for key '%s'", key);
+    }
+  }
   else if ([obj isKindOfClass:[NSString class]]) {
     if (bson_append_string(b, key, [obj UTF8String]) != BSON_OK) {
       NSLog(@"bson error: could not append string for key '%s'", key);
@@ -299,7 +305,12 @@ static id decodeBson(bson *b, id collection) {
       case BSON_NULL:
         obj = [NSNull null];
         break;
-      case BSON_REGEX:
+      case BSON_REGEX: {
+        const char *regex = bson_iterator_regex(iter);
+        const char *opts = bson_iterator_regex_opts(iter);
+        obj = [[COMongoRegex alloc] initWithString:[NSString stringWithCString:regex encoding:NSUTF8StringEncoding]
+                                           options:[NSString stringWithCString:opts encoding:NSUTF8StringEncoding]];
+      }
         break;
       case BSON_DBREF: // deprecated
         break;
@@ -444,15 +455,15 @@ static const char *namespace(NSString *database, NSString *collection) {
 
 @implementation COMongoRegex {
 @private
-  NSString            *exp_;
-  COMongoRegexOption  opts_;
+  NSString  *exp_;
+  NSString  *flags_;
 }
 
-- (id)initWithString:(NSString *)string options:(COMongoRegexOption)mask {
+- (id)initWithString:(NSString *)string options:(NSString *)flags; {
   self = [super init];
   if (self) {
     exp_ = [string copy];
-    opts_ = mask;
+    flags_ = [flags copy];
   }
   return self;
 }
@@ -462,14 +473,8 @@ static const char *namespace(NSString *database, NSString *collection) {
 }
 
 - (const char *)options {
-  if (opts_ > 0) {
-    NSMutableString *str = [NSMutableString new];
-    if ((opts_ & COMongoRegexOptionCaseInsensitive) == COMongoRegexOptionCaseInsensitive) {
-      [str appendString:@"i"];
-    }
-    if (str.length > 0) {
-      return str.UTF8String;
-    }
+  if (flags_.length > 0) {
+    return flags_.UTF8String;
   }
   return NULL;
 }

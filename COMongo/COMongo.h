@@ -72,14 +72,9 @@
 
 @end
 
-enum {
-  COMongoRegexOptionCaseInsensitive = (1 << 0)
-};
-typedef NSInteger COMongoRegexOption;
-
 @interface COMongoRegex : NSObject
 
-- (id)initWithString:(NSString *)string options:(COMongoRegexOption)mask;
+- (id)initWithString:(NSString *)string options:(NSString *)flags;
 
 - (const char *)expression;
 - (const char *)options;
