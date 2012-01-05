@@ -40,7 +40,6 @@
 
 /* Begin PBXFileReference section */
 		DC1A1C5014B4FC2800C9B034 /* COMongoCredentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = COMongoCredentials.h; sourceTree = "<group>"; };
-		DC91708614B5B30A00B93593 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		DCCC2E1714B4621D0097E26B /* COMongo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = COMongo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCCC2E1B14B4621D0097E26B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		DCCC2E1D14B4621D0097E26B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -121,7 +120,6 @@
 		DCCC2E1A14B4621D0097E26B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				DC91708614B5B30A00B93593 /* CFNetwork.framework */,
 				DCCC2E1B14B4621D0097E26B /* UIKit.framework */,
 				DCCC2E1D14B4621D0097E26B /* Foundation.framework */,
 				DCCC2E1F14B4621D0097E26B /* CoreGraphics.framework */,
