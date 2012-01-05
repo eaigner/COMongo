@@ -178,6 +178,10 @@ static void encodeBson(bson *b, id obj, const char *key) {
   else if ([obj isKindOfClass:[NSString class]]) {
     report(bson_append_string(b, key, [obj UTF8String]), key, "could not append string");
   }
+  else if ([obj isKindOfClass:[NSDate class]]) {
+    bson_date_t millis = (bson_date_t)([obj timeIntervalSince1970] * 1000.0);
+    report(bson_append_date(b, key, millis), key, "could not append date");
+  }
   else if ([obj isKindOfClass:[NSNumber class]]) {
     NSNumber *number = (NSNumber *)obj;
     const char *objCType = number.objCType;
@@ -288,6 +292,7 @@ static id decodeBson(bson *b, id collection) {
         obj = [NSNumber numberWithBool:bson_iterator_bool(iter)];
         break;
       case BSON_DATE:
+        obj = [NSDate dateWithTimeIntervalSince1970:0.001 * bson_iterator_date(iter)];
         break;
       case BSON_NULL:
         obj = [NSNull null];
