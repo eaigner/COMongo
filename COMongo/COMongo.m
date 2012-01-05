@@ -268,7 +268,7 @@ static id decodeBson(bson *b, id collection) {
       case BSON_UNDEFINED:
         break;
       case BSON_OID:
-        
+        obj = [NSString OIDStringWithOID:bson_iterator_oid(iter)];
         break;
       case BSON_BOOL:
         obj = [NSNumber numberWithBool:bson_iterator_bool(iter)];
