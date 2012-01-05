@@ -8,6 +8,7 @@
 
 #import "COMongo.h"
 
+#import <objc/runtime.h>
 
 #define kCOMongoErrorDomain @"com.chocomoko.ChocoMongo"
 #define kCOMongoIDKey @"_id"
@@ -375,6 +376,29 @@ static const char *namespace(NSString *database, NSString *collection) {
 
 - (id)decodeBSONToObject:(bson *)bson {
   return decodeBson(bson, [NSMutableDictionary new]);
+}
+
+@end
+
+@implementation NSString (MongoOID)
+
+static char kNSStringIsOIDKey;
+
++ (NSString *)OIDStringWithOID:(const bson_oid_t *)oid {
+  char buf[24];
+  bson_oid_to_string(oid, buf);
+  NSString *str = [[NSString alloc] initWithBytes:buf length:24 encoding:NSUTF8StringEncoding];
+  return [self OIDStringWithString:str];
+}
+
++ (NSString *)OIDStringWithString:(NSString *)string {
+  NSString *oidStr = [string copy];
+  objc_setAssociatedObject(oidStr, &kNSStringIsOIDKey, [NSNumber numberWithBool:YES], OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+  return oidStr;
+}
+
+- (BOOL)isOID {
+  return [(NSNumber *)objc_getAssociatedObject(self, &kNSStringIsOIDKey) boolValue];
 }
 
 @end

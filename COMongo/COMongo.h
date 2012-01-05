@@ -61,3 +61,12 @@
 - (id)decodeBSONToObject:(bson *)bson;
 
 @end
+
+@interface NSString (MongoOID)
+
++ (NSString *)OIDStringWithOID:(const bson_oid_t *)oid;
++ (NSString *)OIDStringWithString:(NSString *)string;
+
+- (BOOL)isOID;
+
+@end
