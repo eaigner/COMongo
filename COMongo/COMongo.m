@@ -115,7 +115,7 @@
 - (NSString *)lastErrorString {
   char *str = mongo_->lasterrstr;
   if (str != NULL) {
-    return [NSString stringWithCString:str encoding:NSUTF8StringEncoding];
+    return [NSString stringWithUTF8String:str];
   }
   return nil;
 }
@@ -234,8 +234,8 @@ static void encodeBson(bson *b, id obj, const char *key) {
 
 static void decodeBsonAddToCollection(const char *key, id value, id collection) {
   if ([collection isKindOfClass:[NSMutableDictionary class]]) {
-    NSString *keyStr = [NSString stringWithCString:key encoding:NSUTF8StringEncoding];
-    [collection setObject:value forKey:keyStr];
+    [collection setObject:value
+                   forKey:[NSString stringWithUTF8String:key]];
   }
   else if ([collection isKindOfClass:[NSMutableArray class]]) {
     [collection addObject:value];
@@ -263,7 +263,7 @@ static id decodeBson(bson *b, id collection) {
         obj = [NSNumber numberWithDouble:bson_iterator_double(iter)];
         break;
       case BSON_STRING:
-        obj = [NSString stringWithCString:bson_iterator_string(iter) encoding:NSUTF8StringEncoding];
+        obj = [NSString stringWithUTF8String:bson_iterator_string(iter)];
         break;
       case BSON_OBJECT: {
         bson sub[1];
@@ -300,8 +300,8 @@ static id decodeBson(bson *b, id collection) {
       case BSON_REGEX: {
         const char *regex = bson_iterator_regex(iter);
         const char *opts = bson_iterator_regex_opts(iter);
-        obj = [[COMongoRegex alloc] initWithString:[NSString stringWithCString:regex encoding:NSUTF8StringEncoding]
-                                           options:[NSString stringWithCString:opts encoding:NSUTF8StringEncoding]];
+        obj = [[COMongoRegex alloc] initWithString:[NSString stringWithUTF8String:regex]
+                                           options:[NSString stringWithUTF8String:opts]];
       }
         break;
       case BSON_DBREF: // deprecated
