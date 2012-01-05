@@ -17,8 +17,6 @@
 @property (nonatomic, assign, readwrite) int port;
 @property (nonatomic, assign, readwrite) int operationTimeout;
 @property (nonatomic, copy, readwrite) NSString *database;
-@property (nonatomic, copy, readwrite) NSString *user;
-@property (nonatomic, copy, readwrite) NSString *password;
 @end
 
 @implementation COMongo {
@@ -29,14 +27,12 @@
 @synthesize port = port_;
 @synthesize operationTimeout = operationTimeout_;
 @synthesize database = database_;
-@synthesize user = user_;
-@synthesize password = password_;
 
 - (id)initWithHost:(NSString *)host port:(int)port database:(NSString *)db {
-  return [self initWithHost:host port:port database:db user:nil password:nil operationTimeout:1000];
+  return [self initWithHost:host port:port database:db operationTimeout:1000];
 }
 
-- (id)initWithHost:(NSString *)host port:(int)port database:(NSString *)db user:(NSString *)user password:(NSString *)password operationTimeout:(int)millis {
+- (id)initWithHost:(NSString *)host port:(int)port database:(NSString *)db operationTimeout:(int)millis {
   assert(host.length > 0);
   assert(port > 0);
   assert(db.length > 0);
@@ -46,8 +42,6 @@
     self.host = host;
     self.port = port;
     self.database = db;
-    self.user = user;
-    self.password = password;
     self.operationTimeout = millis;
     
     mongo_init(mongo_);
@@ -84,12 +78,17 @@
       return NO;
     }
   }
-  else if (self.database.length > 0 && self.user.length > 0 && self.password.length > 0) {
-    if (mongo_cmd_authenticate(mongo_, self.database.UTF8String, self.user.UTF8String, self.password.UTF8String) != MONGO_OK) {
-      NSLog(@"mongo error: could not authenticate '%@' with '%@'", self.user, self.database);
-    }
-  }
   
+  return (status == MONGO_OK);
+}
+
+- (BOOL)authenticateWithUser:(NSString *)user password:(NSString *)password {
+  assert(user.length > 0);
+  assert(password.length > 0);
+  int status = mongo_cmd_authenticate(mongo_, self.database.UTF8String, user.UTF8String, password.UTF8String);
+  if (status != MONGO_OK) {
+    NSLog(@"mongo error: could not authenticate '%@' with '%@'", user, self.database);
+  }
   return (status == MONGO_OK);
 }
 

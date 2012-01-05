@@ -15,13 +15,12 @@
 @property (nonatomic, assign, readonly) int port;
 @property (nonatomic, assign, readonly) int operationTimeout;
 @property (nonatomic, copy, readonly) NSString *database;
-@property (nonatomic, copy, readonly) NSString *user;
-@property (nonatomic, copy, readonly) NSString *password;
 
 - (id)initWithHost:(NSString *)host port:(int)port database:(NSString *)db;
-- (id)initWithHost:(NSString *)host port:(int)port database:(NSString *)db user:(NSString *)user password:(NSString *)password operationTimeout:(int)millis;
+- (id)initWithHost:(NSString *)host port:(int)port database:(NSString *)db operationTimeout:(int)millis;
 
 - (BOOL)connect:(NSError **)error;
+- (BOOL)authenticateWithUser:(NSString *)user password:(NSString *)password;
 - (void)destroy;
 
 /*!
