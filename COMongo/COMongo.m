@@ -171,9 +171,9 @@ static void encodeBson(bson *b, id obj, const char *key) {
     }
   }
   else if ([obj isKindOfClass:[NSString class]]) {
-    if ([obj isOID]) {
+    if ([obj isMongoOID]) {
       bson_oid_t oid[1];
-      [obj getOID:oid];
+      [obj getMongoOID:oid];
       if (bson_append_oid(b, key, oid) != BSON_OK) {
         NSLog(@"bson error: could not append oid for key '%s'", key);
       }
@@ -293,7 +293,7 @@ static id decodeBson(bson *b, id collection) {
       case BSON_UNDEFINED:
         break;
       case BSON_OID:
-        obj = [NSString OIDStringWithOID:bson_iterator_oid(iter)];
+        obj = [NSString mongoOIDWithOID:bson_iterator_oid(iter)];
         break;
       case BSON_BOOL:
         obj = [NSNumber numberWithBool:bson_iterator_bool(iter)];
@@ -407,35 +407,70 @@ static const char *namespace(NSString *database, NSString *collection) {
 
 @implementation NSString (MongoOID)
 
-static char kNSStringIsOIDKey;
+static char kNSStringIsMongoOIDKey;
 
-+ (NSString *)newOID {
++ (NSString *)newMongoOID {
   bson_oid_t oid[1];
   bson_oid_gen(oid);
-  return [self OIDStringWithOID:oid];
+  return [self mongoOIDWithOID:oid];
 }
 
-+ (NSString *)OIDStringWithOID:(bson_oid_t *)oid {
++ (NSString *)mongoOIDWithOID:(bson_oid_t *)oid {
   char buf[24];
   bson_oid_to_string(oid, buf);
   NSString *str = [[NSString alloc] initWithBytes:buf length:24 encoding:NSUTF8StringEncoding];
-  return [self OIDStringWithString:str];
+  return [self mongoOIDWithString:str];
 }
 
-+ (NSString *)OIDStringWithString:(NSString *)string {
++ (NSString *)mongoOIDWithString:(NSString *)string {
   NSString *oidStr = [string copy];
-  objc_setAssociatedObject(oidStr, &kNSStringIsOIDKey, [NSNumber numberWithBool:YES], OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+  objc_setAssociatedObject(oidStr, &kNSStringIsMongoOIDKey, [NSNumber numberWithBool:YES], OBJC_ASSOCIATION_RETAIN_NONATOMIC);
   return oidStr;
 }
 
-- (BOOL)isOID {
-  return [(NSNumber *)objc_getAssociatedObject(self, &kNSStringIsOIDKey) boolValue];
+- (BOOL)isMongoOID {
+  return [(NSNumber *)objc_getAssociatedObject(self, &kNSStringIsMongoOIDKey) boolValue];
 }
 
-- (void)getOID:(bson_oid_t *)oid {
-  if ([self isOID]) {
+- (void)getMongoOID:(bson_oid_t *)oid {
+  if ([self isMongoOID]) {
     bson_oid_from_string(oid, self.UTF8String);
   }
+}
+
+@end
+
+@implementation NSString (MongoRegex)
+
+static char kNSStringIsMongoRegexKey;
+static char kNSStringMongoRegexOptsKey;
+
++ (NSString *)mongoRegexStringWithString:(NSString *)string options:(COMongoRegexOption)opt {
+  NSString *mongoRxStr = [string copy];
+  objc_setAssociatedObject(mongoRxStr, &kNSStringIsMongoRegexKey, [NSNumber numberWithBool:YES], OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+  
+  if (opt > 0) {
+    NSMutableString *opts = [NSMutableString new];
+#define hasRxFlag(x) ((opt & x) == x)
+    if (hasRxFlag(COMongoRegexOptionCaseInsensitive)) {
+      [opts appendString:@"i"];
+    }
+    objc_setAssociatedObject(mongoRxStr, &kNSStringMongoRegexOptsKey, opts, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+  }
+  
+  return mongoRxStr;
+}
+
+- (BOOL)isMongoRegex {
+  return [(NSNumber *)objc_getAssociatedObject(self, &kNSStringIsMongoRegexKey) boolValue];;
+}
+
+- (const char *)mongoRegexOptions {
+  NSString *opts = objc_getAssociatedObject(self, &kNSStringMongoRegexOptsKey);
+  if (opts.length > 0) {
+    return opts.UTF8String;
+  }
+  return NULL;
 }
 
 @end

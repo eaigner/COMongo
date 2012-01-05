@@ -64,11 +64,25 @@
 
 @interface NSString (MongoOID)
 
-+ (NSString *)newOID;
-+ (NSString *)OIDStringWithOID:(bson_oid_t *)oid;
-+ (NSString *)OIDStringWithString:(NSString *)string;
++ (NSString *)newMongoOID;
++ (NSString *)mongoOIDWithOID:(bson_oid_t *)oid;
++ (NSString *)mongoOIDWithString:(NSString *)string;
 
-- (BOOL)isOID;
-- (void)getOID:(bson_oid_t *)oid;
+- (BOOL)isMongoOID;
+- (void)getMongoOID:(bson_oid_t *)oid;
+
+@end
+
+enum {
+  COMongoRegexOptionCaseInsensitive = (1 << 0)
+};
+typedef NSInteger COMongoRegexOption;
+
+@interface NSString (MongoRegex)
+
++ (NSString *)mongoRegexStringWithString:(NSString *)string options:(COMongoRegexOption)opt;
+
+- (BOOL)isMongoRegex;
+- (const char *)mongoRegexOptions;
 
 @end
